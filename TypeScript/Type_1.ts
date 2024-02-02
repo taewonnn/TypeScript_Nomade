@@ -68,7 +68,7 @@ daram.age = 14;
 
 
 
-type Test {
+type Test2 = {
     name: string;
 }
 // in JS
@@ -80,4 +80,4 @@ const jsArrowFunc = ( parameter ) => {}
 //(parameter) => {}
 // 이렇게만 쓰면 {} 부분이 함수 본문인지 객체인지 구분이 안되기 때문에
 // ({}) 이렇게 묶어줘서 return값이 객체임을 확실히
-const tsFunc = ( parameter : string ) : Test => ( {} )
+const tsFunc = ( parameter : string ) : Test2 => ( {} )
