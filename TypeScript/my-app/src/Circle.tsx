@@ -9,7 +9,9 @@ interface ContainerProps {
 // optional Props -> 변수 뒤 ? 필수가 아닌 선택
 interface CircleProps {
   bgColor: string;
+  // borderColor: string | undefined;
   borderColor?: string;
+  text?: string;
 }
 
 const Container = styled.div<ContainerProps>`
@@ -20,10 +22,17 @@ const Container = styled.div<ContainerProps>`
   border: 10px solid ${(props) => props.borderColor};
 `;
 
-function Circle({ bgColor, borderColor }: CircleProps) {
+//💡 원한다면 default값을 argument애서 설정 가능!
+// text='default text'
+// Circle에서 text를 명시 안할 경우 default가 나오고, 명시한다면 명시한 text가 나올 수 있게!
+function Circle({ bgColor, borderColor, text = 'default text' }: CircleProps) {
   // Container에는 borderColor가 option이 아니라, 필수로 되어 있으니 그냥 borderColor쓰면 애러
   // borderColor가 undefined 이면 기본값 'black'
-  return <Container bgColor={bgColor} borderColor={borderColor ?? 'black'} />;
+  return (
+    <Container bgColor={bgColor} borderColor={borderColor ?? 'black'}>
+      {text}
+    </Container>
+  );
 }
 
 export default Circle;
