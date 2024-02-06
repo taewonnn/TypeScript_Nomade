@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 // interface - object의 shpae을 설명해준다.
@@ -26,6 +27,13 @@ const Container = styled.div<ContainerProps>`
 // text='default text'
 // Circle에서 text를 명시 안할 경우 default가 나오고, 명시한다면 명시한 text가 나올 수 있게!
 function Circle({ bgColor, borderColor, text = 'default text' }: CircleProps) {
+  // state - 상태관리
+  // usetstate에서 굳이 type을 지정해주지 않아도 default값으로 어떤 타입을 쓸 건지 알아 차린다!
+  const [value, setValue] = useState<number | string>(1);
+  setValue(2);
+  setValue('nico');
+  // setValue(true);  -> error
+
   // Container에는 borderColor가 option이 아니라, 필수로 되어 있으니 그냥 borderColor쓰면 애러
   // borderColor가 undefined 이면 기본값 'black'
   return (
