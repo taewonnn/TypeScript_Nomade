@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 0 20px;
+  max-width: 480px;
+  margin: 0 auto;
 `;
 
 const Header = styled.header`
@@ -67,6 +69,7 @@ const coins = [
     type: 'token',
   },
 ];
+
 function Coins() {
   return (
     <Container>
