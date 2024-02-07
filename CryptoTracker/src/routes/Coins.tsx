@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -39,54 +40,69 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
 `;
 
-// dummby data
-const coins = [
-  {
-    id: 'btc-bitcoin',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    rank: 1,
-    is_new: false,
-    is_active: true,
-    type: 'coin',
-  },
-  {
-    id: 'eth-ethereum',
-    name: 'Ethereum',
-    symbol: 'ETH',
-    rank: 2,
-    is_new: false,
-    is_active: true,
-    type: 'coin',
-  },
-  {
-    id: 'hex-hex',
-    name: 'HEX',
-    symbol: 'HEX',
-    rank: 3,
-    is_new: false,
-    is_active: true,
-    type: 'token',
-  },
-];
+const Loader = styled.span`
+  text-align: center;
+  display: block;
+`;
+
+// coin data type
+interface CoinInterface {
+  id: string;
+  name: string;
+  symbol: string;
+  rank: number;
+  is_new: boolean;
+  is_active: boolean;
+  type: string;
+}
 
 function Coins() {
+  // Coin data 가져오기
+  const [coins, setCoins] = useState<CoinInterface[]>([]);
+
+  // 로딩
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // ...
+    // 함수 즉시 실행 가능 트릭 ->
+    // (() => console.log(1))();
+    (async () => {
+      const response = await fetch('https://api.coinpaprika.com/v1/coins');
+      const json = await response.json();
+      console.log('fetch data 확인', json);
+      setCoins(json.slice(0, 100));
+      // coin 100개 다 가져오면 loading -> false
+      setLoading(false);
+    })();
+  }, []);
+
+  // 자른 100개 코인목록 확인
+  // console.log('100개 ', coins);
+
   return (
     <Container>
       <Header>
         <Title>Coin</Title>
       </Header>
-      <CoinList>
-        {coins.map((coin) => {
-          return (
-            <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
-            </Coin>
-          );
-        })}
-      </CoinList>
+      {loading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <CoinList>
+          {coins.map((coin) => {
+            return (
+              <Coin key={coin.id}>
+                <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+              </Coin>
+            );
+          })}
+        </CoinList>
+      )}
     </Container>
   );
 }
 
 export default Coins;
+
+// 함수 즉시 실행 가능 트릭 ->
+// (() => console.log(1))();
