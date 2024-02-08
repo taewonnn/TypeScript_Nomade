@@ -26,7 +26,9 @@ const Coin = styled.li`
   a {
     padding: 20px;
     transition: color 0.3s ease-in;
-    display: block;
+    /* display: block; */
+    display: flex;
+    align-items: center;
   }
   &:hover {
     a {
@@ -43,6 +45,12 @@ const Title = styled.h1`
 const Loader = styled.span`
   text-align: center;
   display: block;
+`;
+
+const Img = styled.img`
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 `;
 
 // coin data type
@@ -92,7 +100,13 @@ function Coins() {
           {coins.map((coin) => {
             return (
               <Coin key={coin.id}>
-                <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+                <Link to={`/${coin.id}`} state={{ name: coin.name, rank: coin.rank }}>
+                  <Img
+                    src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
+                    alt="coinImg"
+                  ></Img>
+                  {coin.name} &rarr;
+                </Link>
               </Coin>
             );
           })}
