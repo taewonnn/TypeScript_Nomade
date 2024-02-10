@@ -29,7 +29,7 @@ const Loader = styled.span`
 
 /** interface Start */
 interface ILocation {
-  state: {
+  state: { 
     name: string;
   };
 }
@@ -122,6 +122,9 @@ function Coin() {
   // const location = useLocation();
   // console.log(location);
 
+  // Coin에서 coindata 받아온 것 중 일부만 가져오기
+  // <Link to={`/${coin.id}`} state={{ name: coin.name, rank: coin.rank }}>
+  // Link 속성 중 state로 전달한 것을 받아오기
   const { state } = useLocation() as ILocation;
 
   // 로딩 상태
