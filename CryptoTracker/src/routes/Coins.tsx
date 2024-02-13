@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { fetchCoins } from '../api';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -54,7 +55,7 @@ const Img = styled.img`
 `;
 
 // coin data type
-interface CoinInterface {
+interface Icoin {
   id: string;
   name: string;
   symbol: string;
@@ -65,39 +66,22 @@ interface CoinInterface {
 }
 
 function Coins() {
-  // Coin data 가져오기
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-
-  // 로딩
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // ...
-    // 함수 즉시 실행 가능 트릭 ->
-    // (() => console.log(1))();
-    (async () => {
-      const response = await fetch('https://api.coinpaprika.com/v1/coins');
-      const json = await response.json();
-      console.log('fetch data 확인', json);
-      setCoins(json.slice(0, 100));
-      // coin 100개 다 가져오면 loading -> false
-      setLoading(false);
-    })();
-  }, []);
-
-  // 자른 100개 코인목록 확인
-  // console.log('100개 ', coins);
+  // react Query 적용
+  // @tanstack/react-query -> useQuery(['queryKey], fetcher함수)
+  // 💡 useQuery는 isLoading이라는 boolean값을 return한다 -> fetcher함수가 끝난다면 fetcher함수에서 return한 json을 data에 저장해준다!
+  const { isLoading, data } = useQuery<Icoin[]>(['allcoins'], fetchCoins);
+  console.log(data);
 
   return (
     <Container>
       <Header>
         <Title>Coin</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <CoinList>
-          {coins.map((coin) => {
+          {data?.slice(0, 100).map((coin) => {
             return (
               <Coin key={coin.id}>
                 <Link to={`/${coin.id}`} state={{ name: coin.name, rank: coin.rank }}>
