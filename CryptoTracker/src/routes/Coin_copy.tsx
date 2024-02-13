@@ -74,7 +74,6 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
   }
 `;
-
 /** style End */
 
 /** interface Start */
