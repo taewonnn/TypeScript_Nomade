@@ -234,10 +234,10 @@ function Coin() {
 
           <Tabs>
             <Tab isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
+                <Link to={`/${coinId}/chart`}><Chart coinId={coinId} /></Link>
             </Tab>
             <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
+              <Link to={`/${coinId}/price`}><Price coinId={coinId} /></Link>
             </Tab>
           </Tabs>
           <Outlet />
