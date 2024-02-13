@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+/** style Start */
 const Container = styled.div`
   padding: 0 20px;
   max-width: 480px;
@@ -65,6 +66,7 @@ interface CoinInterface {
   is_active: boolean;
   type: string;
 }
+/** style End */
 
 function Coins() {
   // Coin data 가져오기
