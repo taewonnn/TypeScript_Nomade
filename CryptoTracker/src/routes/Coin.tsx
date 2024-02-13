@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation, useParams, Outlet, useMatch } from 'react-router-dom';
 import Chart from './Chart';
 import Price from './Price';
+import { useQuery } from 'react-query';
+import { fetchCoinInfo, fetchCoinTickers } from '../api';
 
 /** style Start */
 const Container = styled.div`
@@ -72,7 +73,6 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
   }
 `;
-
 /** style End */
 
 /** interface Start */
@@ -142,7 +142,6 @@ interface IPriceData {
     };
   };
 }
-
 /** interface End */
 
 function Coin() {
@@ -179,43 +178,28 @@ function Coin() {
   const priceMatch = useMatch('/:coinId/price');
   const chartMatch = useMatch('/:coinId/chart');
 
-  // 로딩 상태
-  const [loading, setLoading] = useState(true);
+  // react-query 적용
+  // 아래는 coinInfo / coinTrickers 두 가지 정보 fetch
+  // isLoading / data 중복으로 사용 못하니 각각 구분위해 아래처럼 작성 {isLoaidng: ~Loading, data: ~Data}
+  // coin 정보
+  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(['info', coinId], () =>
+    fetchCoinInfo(coinId)
+  );
 
-  // 코인 정보
-  const [info, setInfo] = useState<IInfoData>();
-  // 코인 가격
-  const [priceInfo, setPriceInfo] = useState<IPriceData>();
+  // coin 가격
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(
+    ['tickers', coinId],
+    () => fetchCoinTickers(coinId)
+  );
 
-  // 코인 정보 + 가격 정보 가져오기
-  useEffect(() => {
-    (async () => {
-      // coin 정보
-      const infoData = await (
-        await fetch(`https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}`)
-      ).json();
-      console.log('info : ', infoData);
-      // coin 가격 정보
-      const priceData = await (
-        await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-      ).json();
-      console.log('price : ', priceData);
-
-      // data 담아주기
-      setInfo(infoData);
-      setPriceInfo(priceData);
-      // 로딩 상태 변경
-      setLoading(false);
-    })();
-    // [coinId] => coinId가 변한다면 useEffect안의 코드들이 다시 실행!
-  }, [coinId]);
+  // loading 두 가지
+  const loading = infoLoading || tickersLoading;
 
   return (
     <Container>
       <Header>
-        <Title>{state?.name ? state.name : loading ? 'Loading...' : info?.name}</Title>
+        <Title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</Title>
       </Header>
-
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
@@ -223,28 +207,28 @@ function Coin() {
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
-              <span>{info?.rank}</span>
+              <span>{infoData?.rank}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Symbol:</span>
-              <span>${info?.symbol}</span>
+              <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Open Source:</span>
-              <span>{info?.open_source ? 'Yes' : 'No'}</span>
+              <span>{infoData?.open_source ? 'Yes' : 'No'}</span>
             </OverviewItem>
           </Overview>
 
-          <Description>{info?.description}</Description>
+          <Description>{infoData?.description}</Description>
 
           <Overview>
             <OverviewItem>
               <span>Total Suply:</span>
-              <span>{priceInfo?.total_supply}</span>
+              <span>{tickersData?.total_supply}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Max Supply:</span>
-              <span>{priceInfo?.max_supply}</span>
+              <span>{tickersData?.max_supply}</span>
             </OverviewItem>
           </Overview>
 
