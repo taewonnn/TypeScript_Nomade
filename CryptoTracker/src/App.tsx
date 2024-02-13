@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
       display: none;
   }
   body {
+    font-weight: 300;
     line-height: 1;
   }
   menu, ol, ul {
@@ -53,6 +54,7 @@ const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
+    color:inherit;
   }
   * {
     box-sizing: border-box;
@@ -61,8 +63,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Source Sans Pro', sans-serif;
 
     // theme.ts에서 정의해둔 color 
-    background-color : ${(props) => props.theme.bgColor};
+    background-color: ${(props) => props.theme.bgColor};
     color: ${(props) => props.theme.textColor};
+    line-height: 1.2;
   }
 `;
 
