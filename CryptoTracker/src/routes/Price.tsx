@@ -1,11 +1,8 @@
 /** interface Start */
-interface IPricetProps {
-  coinId: string;
-}
 
 /** interface End */
 
-function Price({ coinId }: IPricetProps) {
+function Price() {
   return <div>price</div>;
 }
 
