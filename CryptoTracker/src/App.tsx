@@ -71,6 +71,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// react-qeury 셋팅
 const queryClient = new QueryClient();
 
 function App() {
