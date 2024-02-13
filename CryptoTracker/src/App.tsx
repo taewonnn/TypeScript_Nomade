@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import router from './Router';
 import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -80,6 +81,8 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <RouterProvider router={router} />
+        {/* React-query Devtools */}
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );
