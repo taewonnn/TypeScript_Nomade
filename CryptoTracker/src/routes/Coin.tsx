@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, Outlet, useMatch } from 'react-router-dom';
+import Chart from './Chart';
+import Price from './Price';
 
 /** style Start */
 const Container = styled.div`
@@ -25,11 +27,57 @@ const Loader = styled.span`
   text-align: center;
   display: block;
 `;
+
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+
+const Description = styled.p`
+  margin: 20px 0px;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
+  a {
+    display: block;
+  }
+`;
+
 /** style End */
 
 /** interface Start */
 interface ILocation {
-  state: { 
+  state: {
     name: string;
   };
 }
@@ -127,6 +175,10 @@ function Coin() {
   // Link 속성 중 state로 전달한 것을 받아오기
   const { state } = useLocation() as ILocation;
 
+  // useMatch()  => 너가 특정 url에 있는지 여부 / url이 ()안에 있는 랜딩에 있는지!
+  const priceMatch = useMatch('/:coinId/price');
+  const chartMatch = useMatch('/:coinId/chart');
+
   // 로딩 상태
   const [loading, setLoading] = useState(true);
 
@@ -152,14 +204,61 @@ function Coin() {
       // data 담아주기
       setInfo(infoData);
       setPriceInfo(priceData);
+      // 로딩 상태 변경
+      setLoading(false);
     })();
-  }, []);
+    // [coinId] => coinId가 변한다면 useEffect안의 코드들이 다시 실행!
+  }, [coinId]);
+
   return (
     <Container>
       <Header>
-        <Title>{state?.name || 'Loading...'}</Title>
+        <Title>{state?.name ? state.name : loading ? 'Loading...' : info?.name}</Title>
       </Header>
-      {loading ? <Loader>Loading...</Loader> : null}
+
+      {loading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank:</span>
+              <span>{info?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol:</span>
+              <span>${info?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source:</span>
+              <span>{info?.open_source ? 'Yes' : 'No'}</span>
+            </OverviewItem>
+          </Overview>
+
+          <Description>{info?.description}</Description>
+
+          <Overview>
+            <OverviewItem>
+              <span>Total Suply:</span>
+              <span>{priceInfo?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply:</span>
+              <span>{priceInfo?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
+          <Outlet />
+        </>
+      )}
     </Container>
   );
 }
@@ -183,3 +282,7 @@ export default Coin;
 // 4. Object.values(temp1).map(v => typeof v) -> temp1의 타입들을 배열로 가져옴
 // 5. Object.values(temp1).map(v => typeof v).join() -> temp1의 타입들을 문자열 형태로 가져옴
 // 단축키 : option + shift + i
+
+// ?
+// info가 존재하는 경우에만 rank를 찾아라
+// <span>{info?.rank}</span>
