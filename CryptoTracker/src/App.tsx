@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import router from './Router';
 import { RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -70,11 +71,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </>
   );
 }
