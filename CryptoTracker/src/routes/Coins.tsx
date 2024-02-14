@@ -2,6 +2,8 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoins } from '../api';
+import { Helmet } from 'react-helmet';
+import { stat } from 'fs';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -74,6 +76,10 @@ function Coins() {
 
   return (
     <Container>
+      {/* chrome Tab 제목 */}
+      <Helmet>
+        <title>Coin</title>
+      </Helmet>
       <Header>
         <Title>Coin</Title>
       </Header>

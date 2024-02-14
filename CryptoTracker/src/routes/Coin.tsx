@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link, useLocation, useParams, Outlet, useMatch } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
+import { Helmet } from 'react-helmet';
 
 /** style Start */
 const Container = styled.div`
@@ -200,6 +201,10 @@ function Coin() {
 
   return (
     <Container>
+      {/* chrome Tab 제목 */}
+      <Helmet>
+        <title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</Title>
       </Header>
