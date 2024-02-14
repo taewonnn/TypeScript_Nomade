@@ -47,8 +47,22 @@ function Chart() {
           options={{
             theme: { mode: 'dark' },
             chart: { height: 500, width: 500, toolbar: { show: false } },
-
             stroke: { curve: 'smooth', width: 3 },
+            fill: { type: 'gradient', gradient: { gradientToColors: ['blue'], stops: [0, 100] } },
+            colors: ['red'],
+            yaxis: {
+              show: false,
+            },
+            xaxis: {
+              labels: { show: false },
+              type: 'datetime',
+              categories: data?.map((price) => new Date(price.time_close * 1000).toISOString()),
+            },
+            tooltip: {
+              y: {
+                formatter: (value) => `${value.toFixed(3)}`,
+              },
+            },
           }}
         />
       )}
