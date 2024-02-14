@@ -81,31 +81,38 @@ interface ILocation {
   };
 }
 
+interface IDescription {
+  en: string;
+}
 interface IInfoData {
   id: string;
-  name: string;
   symbol: string;
-  rank: number;
-  is_new: boolean;
-  is_active: boolean;
-  type: string;
-  logo: string;
-  tags?: object;
-  team?: object;
-  description: string;
-  message: string;
-  open_source: boolean;
-  started_at: string;
-  development_status: string;
-  hardware_wallet: boolean;
-  proof_type: string;
-  org_structure: string;
-  hash_algorithm: string;
-  links?: object;
-  links_extended: object;
-  whitepaper?: object;
-  first_data_at: string;
-  last_data_at: string;
+  name: string;
+  web_slug: string;
+  asset_platform_id: object;
+  platforms: object;
+  detail_platforms: object;
+  block_time_in_minutes: number;
+  hashing_algorithm: string;
+  categories: object;
+  preview_listing: boolean;
+  public_notice: object;
+  additional_notices: object;
+  description: IDescription[];
+  links: object;
+  image: object;
+  country_origin: string;
+  genesis_date: string;
+  sentiment_votes_up_percentage: number;
+  sentiment_votes_down_percentage: number;
+  watchlist_portfolio_users: number;
+  market_cap_rank: number;
+  market_data: object;
+  community_data: object;
+  developer_data: object;
+  status_updates: object;
+  last_updated: string;
+  tickers: object;
 }
 
 interface IPriceData {
@@ -186,6 +193,7 @@ function Coin() {
     fetchCoinInfo(coinId)
   );
 
+  console.log('info!!!', infoData);
   // coin 가격
   const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(
     ['tickers', coinId],
@@ -215,7 +223,7 @@ function Coin() {
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
-              <span>{infoData?.rank}</span>
+              <span>{infoData?.market_cap_rank}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Symbol:</span>
@@ -227,7 +235,7 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          <Description>{infoData?.description}</Description>
+          <Description>{infoData?.description.en}</Description>
 
           <Overview>
             <OverviewItem>

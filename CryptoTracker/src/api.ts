@@ -23,9 +23,9 @@ export function fetchCoins() {
   );
 }
 
-// coin 정보 - 유료 API
+// coin 정보
 export function fetchCoinInfo(coinId: string | undefined) {
-  return fetch(`${BASE_URL}/coins/${coinId}`).then((response) => response.json());
+  return fetch(`${BASE_URL}/${coinId}?localization=false`).then((response) => response.json());
 }
 
 // coin 정보 - nomade API
