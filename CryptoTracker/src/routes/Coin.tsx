@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import { Link, useLocation, useParams, Outlet, useMatch, useOutletContext } from 'react-router-dom';
-import Chart from './Chart';
-import Price from './Price';
+import { Link, useLocation, useParams, Outlet, useMatch } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 
@@ -239,9 +237,9 @@ function Coin() {
             <Tab isActive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
-            </Tabs>
-            {/* useOutletContext -> context = {넘겨줄 데이터} */}
-          <Outlet context={{coinId}}/>
+          </Tabs>
+          {/* useOutletContext -> context = {넘겨줄 데이터} */}
+          <Outlet context={{ coinId }} />
         </>
       )}
     </Container>
