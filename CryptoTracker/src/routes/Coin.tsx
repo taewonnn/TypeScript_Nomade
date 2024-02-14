@@ -178,6 +178,7 @@ function Coin() {
 
   // react-query 적용
   // 아래는 coinInfo / coinTrickers 두 가지 정보 fetch
+  // @tanstack/react-query -> useQuery(['queryKey], fetcher함수, 선택적인 obj)
   // isLoading / data 중복으로 사용 못하니 각각 구분위해 아래처럼 작성 {isLoaidng: ~Loading, data: ~Data}
   // coin 정보
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(['info', coinId], () =>
@@ -188,6 +189,10 @@ function Coin() {
   const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(
     ['tickers', coinId],
     () => fetchCoinTickers(coinId)
+    // {
+    //   // 5초 마다 해당 쿼리를 refetch한다!
+    //   refetchInterval: 5000,
+    // }
   );
 
   // loading 두 가지
@@ -212,8 +217,8 @@ function Coin() {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? 'Yes' : 'No'}</span>
+              <span>Price:</span>
+              <span>{tickersData?.quotes.USD.price.toFixed(2)}</span>
             </OverviewItem>
           </Overview>
 
