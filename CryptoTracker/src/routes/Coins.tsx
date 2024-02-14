@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoins } from '../api';
 import { Helmet } from 'react-helmet';
-import { stat } from 'fs';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -57,14 +56,34 @@ const Img = styled.img`
 `;
 
 // coin data type
+
 interface Icoin {
   id: string;
-  name: string;
   symbol: string;
-  rank: number;
-  is_new: boolean;
-  is_active: boolean;
-  type: string;
+  name: string;
+  image: string;
+  current_price: number;
+  market_cap: number;
+  market_cap_rank: number;
+  fully_diluted_valuation: number;
+  total_volume: number;
+  high_24h: number;
+  low_24h: number;
+  price_change_24h: number;
+  price_change_percentage_24h: number;
+  market_cap_change_24h: number;
+  market_cap_change_percentage_24h: number;
+  circulating_supply: number;
+  total_supply: number;
+  max_supply: number;
+  ath: number;
+  ath_change_percentage: number;
+  ath_date: string;
+  atl: number;
+  atl_change_percentage: number;
+  atl_date: string;
+  roi: object;
+  last_update: string;
 }
 
 function Coins() {
@@ -87,14 +106,11 @@ function Coins() {
         <Loader>Loading...</Loader>
       ) : (
         <CoinList>
-          {data?.slice(0, 100).map((coin) => {
+          {data?.map((coin) => {
             return (
               <Coin key={coin.id}>
-                <Link to={`/${coin.id}`} state={{ name: coin.name, rank: coin.rank }}>
-                  <Img
-                    src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
-                    alt="coinImg"
-                  ></Img>
+                <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+                  <Img src={`${coin.image}`} alt="coinImg"></Img>
                   {coin.name} &rarr;
                 </Link>
               </Coin>
