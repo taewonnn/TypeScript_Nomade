@@ -104,7 +104,9 @@ interface IInfoData {
   sentiment_votes_down_percentage: number;
   watchlist_portfolio_users: number;
   market_cap_rank: number;
-  market_data: object;
+  market_data: {
+    current_price: { krw: number };
+  };
   community_data: object;
   developer_data: object;
   status_updates: object;
@@ -112,38 +114,42 @@ interface IInfoData {
   tickers: object;
 }
 
-interface IPriceData {
-  id: string;
+interface IMarket {
   name: string;
-  symbol: string;
-  rank: number;
-  circulating_supply: number;
-  total_supply: number;
-  max_supply: number;
-  beta_value: number;
-  first_data_at: string;
-  last_updated: string;
-  quotes: {
-    USD: {
-      price: number;
-      volume_24h: number;
-      volume_24h_change_24h: number;
-      market_cap: number;
-      market_cap_change_24h: number;
-      percent_change_15m: number;
-      percent_change_30m: number;
-      percent_change_1h: number;
-      percent_change_6h: number;
-      percent_change_12h: number;
-      percent_change_24h: number;
-      percent_change_7d: number;
-      percent_change_30d: number;
-      percent_change_1y: number;
-      ath_price: number;
-      ath_date: string;
-      percent_from_price_ath: number;
-    };
-  };
+  identifier: string;
+  has_trading_incentive: boolean;
+}
+
+interface IConverted {
+  btc: number;
+  eth: number;
+  usd: number;
+}
+
+interface ITickerData {
+  base: string;
+  target: string;
+  market: IMarket;
+  last: number;
+  volume: number;
+  converted_last: IConverted;
+  converted_volume: IConverted;
+  trust_score: string;
+  bid_ask_spread_percentage: number;
+  timestamp: string;
+  last_traded_at: string;
+  last_fetch_at: string;
+  is_anomaly: boolean;
+  is_stale: boolean;
+  trade_url: string;
+  token_info_url: string | null;
+  coin_id: string;
+  target_coin_id: string;
+}
+
+interface ITickersData {
+  name: string;
+  tickers: ITickerData[];
 }
 /** interface End */
 
@@ -189,10 +195,10 @@ function Coin() {
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(['info', coinId], () =>
     fetchCoinInfo(coinId)
   );
+  // console.log('info!!!', infoData);
 
-  console.log('info!!!', infoData);
   // coin 가격
-  const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<ITickersData>(
     ['tickers', coinId],
     () => fetchCoinTickers(coinId)
     // {
@@ -200,6 +206,14 @@ function Coin() {
     //   refetchInterval: 5000,
     // }
   );
+  console.log('tickers!!!! :', tickersData);
+
+  // let binanceLast = undefined;
+
+  // if (tickersData) {
+  //   const binanceTicker = tickersData.tickers.find((ticker) => ticker.market.name === 'Binance');
+  //   binanceLast = binanceTicker ? binanceTicker.last : undefined;
+  // }
 
   // loading 두 가지
   const loading = infoLoading || tickersLoading;
@@ -228,7 +242,7 @@ function Coin() {
             </OverviewItem>
             <OverviewItem>
               <span>Price:</span>
-              <span>{tickersData?.quotes.USD.price.toFixed(2)}</span>
+              <span>{infoData?.market_data.current_price.krw}</span>
             </OverviewItem>
           </Overview>
 
@@ -236,12 +250,12 @@ function Coin() {
 
           <Overview>
             <OverviewItem>
-              <span>Total Suply:</span>
-              <span>{tickersData?.total_supply}</span>
+              <span>last(binance):</span>
+              {/* <span>{binanceLast ? binanceLast : 'N/A'}</span> */}
             </OverviewItem>
             <OverviewItem>
-              <span>Max Supply:</span>
-              <span>{tickersData?.max_supply}</span>
+              <span>volume:</span>
+              {/* <span>{tickersData?.tickers}</span> */}
             </OverviewItem>
           </Overview>
 

@@ -6,16 +6,11 @@
 https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1
 
 - 코인 정보 불러오기
-https://api.coingecko.com/api/v3/coins/${cryptoId}?localization=false
+https://api.coingecko.com/api/v3/coins/${coinId}?localization=false
 
-- ohlcv 불러오기
-https://api.coingecko.com/api/v3/coins/${cryptoId}/ohlc?vs_currency=usd&days=${days}
+- ticker 불러오기
+https://api.coingecko.com/api/v3/coins/${coinId}/tickers
 
-
-https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=7
-
-
-https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=1707902660
 */
 
 // BASE_URL
@@ -34,19 +29,14 @@ export function fetchCoinInfo(coinId: string | undefined) {
   return fetch(`${BASE_URL}/${coinId}?localization=false`).then((response) => response.json());
 }
 
-// coin 정보 - nomade API
-export function fetchCoinInfo2(coinId: string | undefined) {
-  return fetch(`https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}`).then((response) =>
-    response.json()
-  );
-}
-
-// coin 가격
+// coin tickers
 export function fetchCoinTickers(coinId: string | undefined) {
-  const days = Math.floor(Date.now() / 1000);
-  return fetch(`${BASE_URL}/${coinId}/ohlc?vs_currency=usd&days=${days}`).then((response) =>
-    response.json()
-  );
+  return fetch(`${BASE_URL}/${coinId}/tickers`)
+    .then((response) => response.json())
+    .then((json) => {
+      json.tickers = json.tickers.filter((ticker: any) => ticker.market.name === 'Binance');
+      return json;
+    });
 }
 
 // coin 가격 기록
