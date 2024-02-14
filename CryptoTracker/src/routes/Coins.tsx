@@ -67,7 +67,7 @@ interface Icoin {
 
 function Coins() {
   // react Query 적용
-  // @tanstack/react-query -> useQuery(['queryKey], fetcher함수)
+  // @tanstack/react-query -> useQuery(['queryKey], fetcher함수, 선택적인 obj)
   // 💡 useQuery는 isLoading이라는 boolean값을 return한다 -> fetcher함수가 끝난다면 fetcher함수에서 return한 json을 data에 저장해준다!
   const { isLoading, data } = useQuery<Icoin[]>(['allcoins'], fetchCoins);
   console.log(data);
