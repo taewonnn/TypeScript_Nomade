@@ -81,9 +81,6 @@ interface ILocation {
   };
 }
 
-interface IDescription {
-  en: string;
-}
 interface IInfoData {
   id: string;
   symbol: string;
@@ -98,7 +95,7 @@ interface IInfoData {
   preview_listing: boolean;
   public_notice: object;
   additional_notices: object;
-  description: IDescription[];
+  description: { en: string };
   links: object;
   image: object;
   country_origin: string;
