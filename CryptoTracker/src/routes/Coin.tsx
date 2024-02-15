@@ -170,7 +170,7 @@ function Coin() {
     // }
   );
   // infodata 확인
-  // console.log('info!!!', infoData);
+  console.log('info!!!', infoData);
 
   return (
     <Container>
@@ -200,7 +200,12 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          <Description>{infoData?.description.en}</Description>
+          <Description>
+            {/* 설명 300자 이상 자르기 */}
+            {infoData?.description.en && infoData?.description.en.length > 300
+              ? `${infoData.description.en.substring(0, 300)}...`
+              : infoData?.description?.en}
+          </Description>
 
           <Overview>
             <OverviewItem>
