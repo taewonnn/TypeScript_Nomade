@@ -170,7 +170,7 @@ function Coin() {
     // }
   );
   // infodata 확인
-  console.log('info!!!', infoData);
+  // console.log('info!!!', infoData);
 
   return (
     <Container>
