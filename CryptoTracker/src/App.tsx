@@ -3,6 +3,8 @@ import router from './Router';
 import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './theme';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -78,12 +80,14 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        <RouterProvider router={router} />
-        {/* React-query Devtools */}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          <RouterProvider router={router} />
+          {/* React-query Devtools */}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ThemeProvider>
     </>
   );
 }
