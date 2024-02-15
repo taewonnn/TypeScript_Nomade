@@ -2,6 +2,8 @@ import { useQuery } from 'react-query';
 import { fetchCoinHistory } from '../api';
 import { useOutletContext } from 'react-router-dom';
 import ApexCharts from 'react-apexcharts';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 /** interface Start */
 interface IChartProps {
@@ -43,6 +45,9 @@ function Chart() {
   });
   // console.log('high:', highAndLowValues);
 
+  // recoil - darkmode
+  const isDark = useRecoilValue(isDarkAtom);
+
   return (
     <div>
       {isLoading ? (
@@ -64,7 +69,7 @@ function Chart() {
             },
           ]}
           options={{
-            theme: { mode: 'dark' },
+            theme: { mode: isDark ? 'dark' : 'light' },
             chart: { height: 500, width: 500, toolbar: { show: false } },
             stroke: { curve: 'smooth', width: 3 },
             fill: { type: 'gradient', gradient: { gradientToColors: ['blue'], stops: [0, 100] } },

@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'styled-components';
 import { lightheme, darkTheme } from './theme';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from './atoms';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -75,11 +77,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [isDarak, setIsDark] = useState(true);
+  // recoil - darkmode
+  const isDark = useRecoilValue(isDarkAtom);
 
   return (
     <>
-      <ThemeProvider theme={isDarak ? darkTheme : lightheme}>
+      <ThemeProvider theme={isDark ? darkTheme : lightheme}>
         <GlobalStyle />
         <RouterProvider router={router} />
         {/* React-query Devtools */}
