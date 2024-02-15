@@ -114,43 +114,42 @@ interface IInfoData {
   tickers: object;
 }
 
-interface IMarket {
+type ITickersData = {
   name: string;
-  identifier: string;
-  has_trading_incentive: boolean;
-}
+  tickers: {
+    base: string;
+    target: string;
+    market: {
+      name: string;
+      identifier: string;
+      has_trading_incentive: boolean;
+    };
+    last: number;
+    volume: number;
+    converted_last: {
+      btc: number;
+      eth: number;
+      usd: number;
+    };
+    converted_volume: {
+      btc: number;
+      eth: number;
+      usd: number;
+    };
+    trust_score: string;
+    bid_ask_spread_percentage: number;
+    timestamp: string;
+    last_traded_at: string;
+    last_fetch_at: string;
+    is_anomaly: boolean;
+    is_stale: boolean;
+    trade_url: string;
+    token_info_url: string | null;
+    coin_id: string;
+    target_coin_id: string;
+  }[];
+};
 
-interface IConverted {
-  btc: number;
-  eth: number;
-  usd: number;
-}
-
-interface ITickerData {
-  base: string;
-  target: string;
-  market: IMarket;
-  last: number;
-  volume: number;
-  converted_last: IConverted;
-  converted_volume: IConverted;
-  trust_score: string;
-  bid_ask_spread_percentage: number;
-  timestamp: string;
-  last_traded_at: string;
-  last_fetch_at: string;
-  is_anomaly: boolean;
-  is_stale: boolean;
-  trade_url: string;
-  token_info_url: string | null;
-  coin_id: string;
-  target_coin_id: string;
-}
-
-interface ITickersData {
-  name: string;
-  tickers: ITickerData[];
-}
 /** interface End */
 
 function Coin() {
@@ -195,6 +194,7 @@ function Coin() {
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(['info', coinId], () =>
     fetchCoinInfo(coinId)
   );
+  // infodata 확인
   // console.log('info!!!', infoData);
 
   // coin 가격
@@ -206,7 +206,8 @@ function Coin() {
     //   refetchInterval: 5000,
     // }
   );
-  console.log('tickers!!!! :', tickersData);
+  // tickersdata 확인
+  // console.log('tickers!!!! :', tickersData?.tickers[1]);
 
   // let binanceLast = undefined;
 
@@ -251,11 +252,11 @@ function Coin() {
           <Overview>
             <OverviewItem>
               <span>last(binance):</span>
-              {/* <span>{binanceLast ? binanceLast : 'N/A'}</span> */}
+              <span>{tickersData?.tickers[1].last}</span>
             </OverviewItem>
             <OverviewItem>
               <span>volume:</span>
-              {/* <span>{tickersData?.tickers}</span> */}
+              <span>{tickersData?.tickers[1].volume.toFixed(2)}</span>
             </OverviewItem>
           </Overview>
 

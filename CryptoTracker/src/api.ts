@@ -32,10 +32,6 @@ export function fetchCoinInfo(coinId: string | undefined) {
 // coin tickers
 export function fetchCoinTickers(coinId: string | undefined) {
   return fetch(`${BASE_URL}/${coinId}/tickers`).then((response) => response.json());
-  // .then((json) => {
-  //   json.tickers = json.tickers.filter((ticker: any) => ticker.market.name === 'Binance');
-  //   return json;
-  // });
 }
 
 // coin 가격 기록
