@@ -1,18 +1,6 @@
 // React Qyery
 // 1.fetcher 함수 -> fetch promise를 return
 
-/** 
-- Market Cap순으로 50개 뽑아오기
-https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1
-
-- 코인 정보 불러오기
-https://api.coingecko.com/api/v3/coins/${coinId}?localization=false
-
-- ticker 불러오기
-https://api.coingecko.com/api/v3/coins/${coinId}/tickers
-
-*/
-
 // BASE_URL
 const BASE_URL = `https://api.coingecko.com/api/v3/coins`;
 

@@ -15,7 +15,6 @@ interface IChartPrice {
   3: number; // low
   4: number; // clos
 }
-
 /** interface End */
 
 function Chart() {
@@ -33,7 +32,7 @@ function Chart() {
       staleTime: Infinity,
     }
   );
-  console.log('chartPrice : ', data);
+  // console.log('chartPrice : ', data);
 
   // high / low 가격 필터
   let highAndLowValues = data?.map((item) => {
@@ -42,7 +41,7 @@ function Chart() {
       low: item[3], // low is at index 3
     };
   });
-  console.log('high:', highAndLowValues);
+  // console.log('high:', highAndLowValues);
 
   return (
     <div>
@@ -94,28 +93,3 @@ function Chart() {
 }
 
 export default Chart;
-
-/**
-
-successful operation
-
-[
-1594382400000 (time),
-1.1 (open),
-2.2 (high),
-3.3 (low),
-4.4 (close)
-]
-
-
-
-[
-  [
-    1594382400000,
-    1.1,
-    2.2,
-    3.3,
-    4.4
-  ]
-]
-*/
