@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import router from './Router';
 import { RouterProvider } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'styled-components';
 import { lightheme, darkTheme } from './theme';
@@ -75,26 +74,16 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// react-qeury 셋팅
-const queryClient = new QueryClient();
-
 function App() {
   const [isDarak, setIsDark] = useState(true);
-  const toggleDark = () => {
-    setIsDark((current) => !current);
-  };
+
   return (
     <>
       <ThemeProvider theme={isDarak ? darkTheme : lightheme}>
-        <button type="button" onClick={toggleDark}>
-          Toggle Mode
-        </button>
-        <QueryClientProvider client={queryClient}>
-          <GlobalStyle />
-          <RouterProvider router={router} />
-          {/* React-query Devtools */}
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+        {/* React-query Devtools */}
+        <ReactQueryDevtools initialIsOpen={false} />
       </ThemeProvider>
     </>
   );
