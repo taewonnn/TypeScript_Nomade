@@ -159,7 +159,11 @@ function Coin() {
   // coin 정보
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
     ['info', coinId],
-    () => fetchCoinInfo(coinId)
+    () => fetchCoinInfo(coinId),
+    {
+      // 개발용 -> 첫 번째 요청 이후에 추가 요청을 전송X
+      staleTime: Infinity,
+    }
     // {
     //   // 5초 마다 해당 쿼리를 refetch한다!
     //   refetchInterval: 5000,
