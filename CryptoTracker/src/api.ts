@@ -29,14 +29,15 @@ export function fetchCoinInfo(coinId: string | undefined) {
   return fetch(`${BASE_URL}/${coinId}?localization=false`).then((response) => response.json());
 }
 
+// coin 가격 기록
+export function fetchCoinHistory(coinId: string | undefined) {
+  // const days = new Date();
+  return fetch(`${BASE_URL}/${coinId}/ohlc?vs_currency=krw&days=1`).then((response) =>
+    response.json()
+  );
+}
+
 // coin tickers
 // export function fetchCoinTickers(coinId: string | undefined) {
 //   return fetch(`${BASE_URL}/${coinId}/tickers`).then((response) => response.json());
 // }
-
-// coin 가격 기록
-export function fetchCoinHistory(coinId: string | undefined) {
-  return fetch(`https://ohlcv-api.nomadcoders.workers.dev?coinId=${coinId}`).then((response) =>
-    response.json()
-  );
-}

@@ -9,15 +9,13 @@ interface IChartProps {
 }
 
 interface IChartPrice {
-  time_open: number;
-  time_close: number;
-  open: string;
-  high: string;
-  low: string;
-  close: string;
-  volume: string;
-  market_cap: number;
+  0: number; // time
+  1: number; // open
+  2: number; // high
+  3: number; // low
+  4: number; // clos
 }
+
 /** interface End */
 
 function Chart() {
@@ -27,10 +25,25 @@ function Chart() {
   const { coinId } = useOutletContext<IChartProps>();
 
   // useQuery
-  const { isLoading, data } = useQuery<IChartPrice[]>(['chartPrice', coinId], () =>
-    fetchCoinHistory(coinId)
+  const { isLoading, data } = useQuery<IChartPrice[]>(
+    ['chartPrice', coinId],
+    () => fetchCoinHistory(coinId),
+    {
+      // 개발용 -> 첫 번째 요청 이후에 추가 요청을 전송X
+      staleTime: Infinity,
+    }
   );
-  // console.log('chartPrice : ', data);
+  console.log('chartPrice : ', data);
+
+  // high / low 가격 필터
+  let highAndLowValues = data?.map((item) => {
+    return {
+      high: item[2], // high is at index 2
+      low: item[3], // low is at index 3
+    };
+  });
+  console.log('high:', highAndLowValues);
+
   return (
     <div>
       {isLoading ? (
@@ -42,7 +55,14 @@ function Chart() {
             // data 넣는 예시
             // { name: 'hello', data: [1, 2, 3] },
             // data가 null이 되는걸 방지하기 위해 ?? [] -> null 대신 빈 배열로 바꿔주기
-            { name: 'sales', data: data?.map((price) => parseFloat(price.close)) ?? [] },
+            {
+              name: 'High prices',
+              data: highAndLowValues?.map((value) => value.high) ?? [],
+            },
+            {
+              name: 'Low prices',
+              data: highAndLowValues?.map((value) => value.low) ?? [],
+            },
           ]}
           options={{
             theme: { mode: 'dark' },
@@ -56,7 +76,10 @@ function Chart() {
             xaxis: {
               labels: { show: false },
               type: 'datetime',
-              categories: data?.map((price) => new Date(price.time_close * 1000).toISOString()),
+              // timestmap 변환  * Date 객체는 밀리초 단위를 사용하므로, 타임스탬프를 1000으로 곱
+              categories: data?.map((price) =>
+                new Date(price[0] /* timestamp */ * 1000).toISOString()
+              ),
             },
             tooltip: {
               y: {
@@ -71,3 +94,28 @@ function Chart() {
 }
 
 export default Chart;
+
+/**
+
+successful operation
+
+[
+1594382400000 (time),
+1.1 (open),
+2.2 (high),
+3.3 (low),
+4.4 (close)
+]
+
+
+
+[
+  [
+    1594382400000,
+    1.1,
+    2.2,
+    3.3,
+    4.4
+  ]
+]
+*/
