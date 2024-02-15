@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'styled-components';
 import { lightheme, darkTheme } from './theme';
+import { useState } from 'react';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -78,9 +79,16 @@ const GlobalStyle = createGlobalStyle`
 const queryClient = new QueryClient();
 
 function App() {
+  const [isDarak, setIsDark] = useState(true);
+  const toggleDark = () => {
+    setIsDark((current) => !current);
+  };
   return (
     <>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={isDarak ? darkTheme : lightheme}>
+        <button type="button" onClick={toggleDark}>
+          Toggle Mode
+        </button>
         <QueryClientProvider client={queryClient}>
           <GlobalStyle />
           <RouterProvider router={router} />
