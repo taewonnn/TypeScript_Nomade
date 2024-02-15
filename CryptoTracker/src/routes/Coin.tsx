@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link, useLocation, useParams, Outlet, useMatch } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { fetchCoinInfo, fetchCoinTickers } from '../api';
+import { fetchCoinInfo } from '../api';
 import { Helmet } from 'react-helmet';
 
 /** style Start */
@@ -106,6 +106,8 @@ interface IInfoData {
   market_cap_rank: number;
   market_data: {
     current_price: { krw: number };
+    total_supply: number;
+    max_supply: number;
   };
   community_data: object;
   developer_data: object;
@@ -113,43 +115,6 @@ interface IInfoData {
   last_updated: string;
   tickers: object;
 }
-
-type ITickersData = {
-  name: string;
-  tickers: {
-    base: string;
-    target: string;
-    market: {
-      name: string;
-      identifier: string;
-      has_trading_incentive: boolean;
-    };
-    last: number;
-    volume: number;
-    converted_last: {
-      btc: number;
-      eth: number;
-      usd: number;
-    };
-    converted_volume: {
-      btc: number;
-      eth: number;
-      usd: number;
-    };
-    trust_score: string;
-    bid_ask_spread_percentage: number;
-    timestamp: string;
-    last_traded_at: string;
-    last_fetch_at: string;
-    is_anomaly: boolean;
-    is_stale: boolean;
-    trade_url: string;
-    token_info_url: string | null;
-    coin_id: string;
-    target_coin_id: string;
-  }[];
-};
-
 /** interface End */
 
 function Coin() {
@@ -190,45 +155,29 @@ function Coin() {
   // 아래는 coinInfo / coinTrickers 두 가지 정보 fetch
   // @tanstack/react-query -> useQuery(['queryKey], fetcher함수, 선택적인 obj)
   // isLoading / data 중복으로 사용 못하니 각각 구분위해 아래처럼 작성 {isLoaidng: ~Loading, data: ~Data}
-  // coin 정보
-  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(['info', coinId], () =>
-    fetchCoinInfo(coinId)
-  );
-  // infodata 확인
-  // console.log('info!!!', infoData);
 
-  // coin 가격
-  const { isLoading: tickersLoading, data: tickersData } = useQuery<ITickersData>(
-    ['tickers', coinId],
-    () => fetchCoinTickers(coinId)
+  // coin 정보
+  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
+    ['info', coinId],
+    () => fetchCoinInfo(coinId)
     // {
     //   // 5초 마다 해당 쿼리를 refetch한다!
     //   refetchInterval: 5000,
     // }
   );
-  // tickersdata 확인
-  // console.log('tickers!!!! :', tickersData?.tickers[1]);
-
-  // let binanceLast = undefined;
-
-  // if (tickersData) {
-  //   const binanceTicker = tickersData.tickers.find((ticker) => ticker.market.name === 'Binance');
-  //   binanceLast = binanceTicker ? binanceTicker.last : undefined;
-  // }
-
-  // loading 두 가지
-  const loading = infoLoading || tickersLoading;
+  // infodata 확인
+  // console.log('info!!!', infoData);
 
   return (
     <Container>
       {/* chrome Tab 제목 */}
       <Helmet>
-        <title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</title>
+        <title>{state?.name ? state.name : infoLoading ? 'Loading...' : infoData?.name}</title>
       </Helmet>
       <Header>
-        <Title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</Title>
+        <Title>{state?.name ? state.name : infoLoading ? 'Loading...' : infoData?.name}</Title>
       </Header>
-      {loading ? (
+      {infoLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
@@ -251,12 +200,12 @@ function Coin() {
 
           <Overview>
             <OverviewItem>
-              <span>last(binance):</span>
-              <span>{tickersData?.tickers[1].last}</span>
+              <span>Total Suply:</span>
+              <span>{infoData?.market_data.total_supply}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>volume:</span>
-              <span>{tickersData?.tickers[1].volume.toFixed(2)}</span>
+              <span>Max Supply:</span>
+              <span>{infoData?.market_data.max_supply}</span>
             </OverviewItem>
           </Overview>
 
