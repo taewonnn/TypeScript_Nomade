@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './theme';
+import { lightheme, darkTheme } from './theme';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -80,7 +80,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={darkTheme}>
         <QueryClientProvider client={queryClient}>
           <GlobalStyle />
           <RouterProvider router={router} />
