@@ -118,8 +118,9 @@ function Coins() {
   });
   console.log(data);
 
-  // recoil
+  // recoil - useRecoilState()
   // value를 설정해주는 함수  React setState함수와 같은 방식으로 작동!
+  // useRecoilState(atom) -> atom을 변경하는 함수를 반환해준다.
   const setDarkAtom = useSetRecoilState(isDarkAtom);
   const toggleDarkAtom = () => {
     setDarkAtom((prev) => !prev);
