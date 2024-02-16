@@ -4,9 +4,7 @@ import { darkTheme } from './theme';
 function App() {
   return (
     <>
-      <ThemeProvider theme={darkTheme}>
-        <div>test</div>
-      </ThemeProvider>
+      <div>test</div>
     </>
   );
 }
