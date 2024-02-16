@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import { useSetRecoilState } from 'recoil';
 import { isDarkAtom } from '../atoms';
 
+/** style Start */
 const Container = styled.div`
   padding: 0 20px;
   max-width: 480px;
@@ -58,8 +59,26 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
-// coin data type
+const ToggleContainer = styled.div`
+  height: 30px;
+  width: 60px;
+  border-radius: 15px;
+  padding: 0.25rem;
+  display: flex;
+  cursor: pointer;
+`;
 
+const ToggleBall = styled.div`
+  height: 100%;
+  width: 50%;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+`;
+
+/** style End */
+
+// coin data type
 interface Icoin {
   id: string;
   symbol: string;
@@ -114,7 +133,9 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>Coin</Title>
-        <button onClick={toggleDarkAtom}>Toggle Mode</button>
+        <ToggleContainer>
+          <ToggleBall onClick={toggleDarkAtom} />
+        </ToggleContainer>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
