@@ -6,7 +6,7 @@ function ToDoList() {
   // console.log(register('toDo')); // {name: 'toDo', onChange: ƒ, onBlur: ƒ, ref: ƒ}
 
   // watch -> form 입력값들의 변화를 관찰할 수 있게 해주는 함수
-  console.log(watch('toDo')); // input에 내가 입력한 값을 콘솔에서 보여준다!
+  console.log(watch()); // input에 내가 입력한 값을 콘솔에서 보여준다!
   return (
     <div>
       <form>
