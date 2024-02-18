@@ -28,7 +28,7 @@ function Register() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onValid)}>
+      <form onSubmit={handleSubmit(onValid)} style={{ display: 'flex', flexDirection: 'column' }}>
         {/* 💡 register -> input의 onchange onblur 이벤트를 대신해줌 즉, userState / onChage 함수를 손수 쓸 필요가 없음 */}
         <input {...register('email', { required: true })} type="text" placeholder="email" />
 
@@ -50,10 +50,14 @@ function Register() {
           placeholder="username"
         />
 
-        <input {...register('password', { required: true })} type="text" placeholder="password" />
+        <input
+          {...register('password', { required: true, minLength: 5 })}
+          type="text"
+          placeholder="password"
+        />
 
         <input
-          {...register('passwordConfirm', { required: true })}
+          {...register('passwordConfirm', { required: true, minLength: 5 })}
           type="text"
           placeholder="passwordConfirm"
         />
