@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import ToDoList from './ToDoList';
-import Register from './register';
+import Register from './Register';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
