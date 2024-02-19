@@ -30,13 +30,16 @@ function ToDoList() {
   };
 
   // Recoil
+  // 💡useRecoilState => atom의 value값과 변경을 위한 modifier 함수를 한 번에 가져오기
+  const [value, modFn] = useRecoilState(toDoState);
 
-  // useRecoilValue : atom의 value에 접근하기 위해 사용
+  //  각각 사용 시
+  // 💡useRecoilValue : atom의 value에 접근하기 위해 사용
   // toDoState이라는 atom의 value에 접근!
-  const value = useRecoilValue(toDoState);
+  // const value = useRecoilValue(toDoState);
 
-  // useSetRecoilState: atom의 값 변경을 위한 modifier 함수
-  const modFn = useRecoilState(toDoState);
+  // 💡useSetRecoilState: atom의 값 변경을 위한 modifier 함수
+  // const modFn = useSetRecoilState(toDoState);
 
   return (
     <div>
