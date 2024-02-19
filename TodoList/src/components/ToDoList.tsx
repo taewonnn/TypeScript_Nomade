@@ -1,4 +1,12 @@
 import { useForm } from 'react-hook-form';
+import { atom, useRecoilState, useRecoilValue } from 'recoil';
+
+/** Recoil Start - 파일 분리 예정 */
+const toDoState = atom({
+  key: ' toDo',
+  default: [],
+});
+/** Recoil End - 파일 분리 예정 */
 
 /** Interface Start */
 interface IForm {
@@ -21,6 +29,15 @@ function ToDoList() {
     setValue('toDo', '');
   };
 
+  // Recoil
+
+  // useRecoilValue : atom의 value에 접근하기 위해 사용
+  // toDoState이라는 atom의 value에 접근!
+  const value = useRecoilValue(toDoState);
+
+  // useSetRecoilState: atom의 값 변경을 위한 modifier 함수
+  const modFn = useRecoilState(toDoState);
+
   return (
     <div>
       <h1>To Dos</h1>
@@ -36,6 +53,9 @@ function ToDoList() {
         />
         <button>Add</button>
       </form>
+
+      {/* toDo 목록 */}
+      <ul></ul>
     </div>
   );
 }
