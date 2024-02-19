@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { toDoState } from '../atoms';
 import CreateToDO from './CreateToDo';
+import ToDo from './ToDo';
 
 function ToDoList() {
   // 💡 useRecoilState => atom의 value값과 변경을 위한 modifier 함수를 한 번에 가져오기
@@ -39,7 +40,9 @@ function ToDoList() {
       {/* toDo 목록 */}
       <ul>
         {toDos.map((toDo) => (
-          <li key={toDo.id}>{toDo.text}</li>
+          // ❗️ 위 아래 같은 의미 이유 -> ?? 속성이 같아서
+          // <ToDo key={toDo.id} id={toDo.id} text={toDo.text} category={toDo.category} />
+          <ToDo key={toDo.id} {...toDo} />
         ))}
       </ul>
     </div>
