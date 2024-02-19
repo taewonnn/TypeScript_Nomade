@@ -9,6 +9,17 @@ const InputContainer = styled.div`
 `;
 /** Style End */
 
+/** Interface Start */
+interface IForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  passwordConfirm: string;
+}
+/** Interface End */
+
 function Register() {
   // react-hook-form 사용 에시 - 회원가입
   const {
@@ -16,7 +27,9 @@ function Register() {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<IForm>({
+    defaultValues: { email: '@naver.com' },
+  });
   // console.log(register('toDo')); // {name: 'toDo', onChange: ƒ, onBlur: ƒ, ref: ƒ}
 
   // 💡 watch -> form 입력값들의 변화를 관찰할 수 있게 해주는 함수
@@ -60,7 +73,7 @@ function Register() {
             type="text"
             placeholder="email"
           />
-          <span>{errors.email?.message as string}</span>
+          <span>{errors.email?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -69,7 +82,7 @@ function Register() {
             type="text"
             placeholder="firstName"
           />
-          <span>{errors.firstName?.message as string}</span>
+          <span>{errors.firstName?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -87,7 +100,7 @@ function Register() {
             type="text"
             placeholder="username"
           />
-          <span>{errors.username?.message as string}</span>
+          <span>{errors.username?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -96,7 +109,7 @@ function Register() {
             type="text"
             placeholder="password"
           />
-          <span>{errors.password?.message as string}</span>
+          <span>{errors.password?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -111,7 +124,7 @@ function Register() {
             type="text"
             placeholder="passwordConfirm"
           />
-          <span>{errors.passwordConfirm?.message as string}</span>
+          <span>{errors.passwordConfirm?.message}</span>
         </InputContainer>
 
         <button>가입하기</button>
