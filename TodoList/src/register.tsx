@@ -17,6 +17,7 @@ interface IForm {
   username: string;
   password: string;
   passwordConfirm: string;
+  extraError?: string;
 }
 /** Interface End */
 
@@ -27,6 +28,7 @@ function Register() {
     watch,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IForm>({
     defaultValues: { email: '@naver.com' },
   });
@@ -49,9 +51,19 @@ function Register() {
   // console.log(handleSubmit);
 
   // validation이 끝난 이후 실행되는 함수
-  const onValid = (data: any) => {
+  const onValid = (data: IForm) => {
     console.log('제출 데이터 : ', data);
+    // 비밀번호 - 비밀번호 확인이 같지 않은 경우 에러
+    if (data.password !== data.passwordConfirm) {
+      setError('passwordConfirm', { message: 'password are not the same' }, { shouldFocus: true });
+    }
+
+    // form 전체에 해당하는 에러 - server Erorr
+    // setError('extraError', { message: '500 ERROR' });
   };
+
+  // 💡setError - 특정한 에러를 발생시키게 해준다. / 특정 input에 포커싱
+  // Ex. setError('Input 이름', { message: '메시지 내용' }, { shouldFocus: true -> 포커싱 });
 
   // 💡 formState - {errors} : form 각각 input의 value 확인 및 error message
   // validation
@@ -74,16 +86,30 @@ function Register() {
             type="text"
             placeholder="email"
           />
-          <span>{errors.email?.message}</span>
+          <span>{errors?.email?.message}</span>
         </InputContainer>
 
         <InputContainer>
           <input
-            {...register('firstName', { required: 'firstName is required', minLength: 2 })}
+            {...register('firstName', {
+              required: 'firstName is required',
+              // 💡validate : 함수 / 여러 개의 함수를 객체로 가능
+              // 입력값에 대한 validation + error message
+              // 특정단어(bit)는 제출 불가하게 막기
+
+              // 여러 개의 함수를 객체로 쓸 때,
+              validate: {
+                noBit: (value) => !value.includes('bit') || 'no bit allowed',
+                noNico: (value) => !value.includes('nico') || 'no bit allowed',
+              },
+
+              // 함수 1개만 쓸 때,
+              // validate: (value) => !value.includes('bit') || 'no bit allowed',
+            })}
             type="text"
             placeholder="firstName"
           />
-          <span>{errors.firstName?.message}</span>
+          <span>{errors?.firstName?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -92,16 +118,16 @@ function Register() {
             type="text"
             placeholder="lastName"
           />
-          <span>{errors.lastName?.message as string}</span>
+          <span>{errors?.lastName?.message as string}</span>
         </InputContainer>
 
         <InputContainer>
           <input
-            {...register('username', { required: 'usename is required', maxLength: 3 })}
+            {...register('username', { required: 'usename is required', minLength: 2 })}
             type="text"
             placeholder="username"
           />
-          <span>{errors.username?.message}</span>
+          <span>{errors?.username?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -110,7 +136,7 @@ function Register() {
             type="text"
             placeholder="password"
           />
-          <span>{errors.password?.message}</span>
+          <span>{errors?.password?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -118,17 +144,20 @@ function Register() {
             {...register('passwordConfirm', {
               required: 'PasswordConfirm is required',
               minLength: {
-                value: 5,
+                value: 3,
                 message: 'Your Passowrd is too short',
               },
             })}
             type="text"
             placeholder="passwordConfirm"
           />
-          <span>{errors.passwordConfirm?.message}</span>
+          <span>{errors?.passwordConfirm?.message}</span>
         </InputContainer>
 
         <button>가입하기</button>
+
+        {/* 💡errors?. -> ?를 붙이는 이유 : errors가 undefined라면 그 뒤를 실행하지 않는다! */}
+        <span>{errors?.extraError?.message}</span>
       </form>
     </div>
   );
