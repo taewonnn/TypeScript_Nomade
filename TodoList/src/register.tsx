@@ -1,8 +1,22 @@
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
+
+/** Style Start */
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+`;
+/** Style End */
 
 function Register() {
   // react-hook-form 사용 에시 - 회원가입
-  const { register, watch, handleSubmit } = useForm();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   // console.log(register('toDo')); // {name: 'toDo', onChange: ƒ, onBlur: ƒ, ref: ƒ}
 
   // 💡 watch -> form 입력값들의 변화를 관찰할 수 있게 해주는 함수
@@ -26,41 +40,80 @@ function Register() {
     console.log('제출 데이터 : ', data);
   };
 
+  // validation
+  // console.log(formState);
+  console.log('form validation : ', errors);
+
   return (
     <div>
       <form onSubmit={handleSubmit(onValid)} style={{ display: 'flex', flexDirection: 'column' }}>
         {/* 💡 register -> input의 onchange onblur 이벤트를 대신해줌 즉, userState / onChage 함수를 손수 쓸 필요가 없음 */}
-        <input {...register('email', { required: true })} type="text" placeholder="email" />
+        <InputContainer>
+          <input
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Za-z0-9._%+-]+@naver.com$/,
+                message: 'Only naver.com emails allowed',
+              },
+            })}
+            type="text"
+            placeholder="email"
+          />
+          <span>{errors.email?.message as string}</span>
+        </InputContainer>
 
-        <input
-          {...register('firstName', { required: true, minLength: 2 })}
-          type="text"
-          placeholder="firstName"
-        />
+        <InputContainer>
+          <input
+            {...register('firstName', { required: 'firstName is required', minLength: 2 })}
+            type="text"
+            placeholder="firstName"
+          />
+          <span>{errors.firstName?.message as string}</span>
+        </InputContainer>
 
-        <input
-          {...register('lastName', { required: true, minLength: 2 })}
-          type="text"
-          placeholder="lastName"
-        />
+        <InputContainer>
+          <input
+            {...register('lastName', { required: 'lastName is required', minLength: 2 })}
+            type="text"
+            placeholder="lastName"
+          />
+          <span>{errors.lastName?.message as string}</span>
+        </InputContainer>
 
-        <input
-          {...register('username', { required: true, maxLength: 5 })}
-          type="text"
-          placeholder="username"
-        />
+        <InputContainer>
+          <input
+            {...register('username', { required: 'usename is required', maxLength: 3 })}
+            type="text"
+            placeholder="username"
+          />
+          <span>{errors.username?.message as string}</span>
+        </InputContainer>
 
-        <input
-          {...register('password', { required: true, minLength: 5 })}
-          type="text"
-          placeholder="password"
-        />
+        <InputContainer>
+          <input
+            {...register('password', { required: 'Password is required', minLength: 3 })}
+            type="text"
+            placeholder="password"
+          />
+          <span>{errors.password?.message as string}</span>
+        </InputContainer>
 
-        <input
-          {...register('passwordConfirm', { required: true, minLength: 5 })}
-          type="text"
-          placeholder="passwordConfirm"
-        />
+        <InputContainer>
+          <input
+            {...register('passwordConfirm', {
+              required: 'PasswordConfirm is required',
+              minLength: {
+                value: 5,
+                message: 'Your Passowrd is too short',
+              },
+            })}
+            type="text"
+            placeholder="passwordConfirm"
+          />
+          <span>{errors.passwordConfirm?.message as string}</span>
+        </InputContainer>
+
         <button>가입하기</button>
       </form>
     </div>
