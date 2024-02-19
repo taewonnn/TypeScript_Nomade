@@ -53,6 +53,7 @@ function Register() {
     console.log('제출 데이터 : ', data);
   };
 
+  // 💡 formState - {errors} : form 각각 input의 value 확인 및 error message
   // validation
   // console.log(formState);
   console.log('form validation : ', errors);
