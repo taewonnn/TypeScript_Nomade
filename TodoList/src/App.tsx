@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import ToDoList from './ToDoList';
-import Register from './Register';
+// import Register from './Register';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -74,8 +74,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      {/* <ToDoList /> */}
-      <Register />
+      <ToDoList />
+      {/* React-hook-form */}
+      {/* <Register /> */}
     </>
   );
 }
