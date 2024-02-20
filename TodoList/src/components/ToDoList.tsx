@@ -18,6 +18,38 @@ function ToDoList() {
 
   // value만 가져오기
   const toDos = useRecoilValue(toDoState);
+  console.log('to Do 작성 : ', toDos);
+  // 결과 ->
+  //   [
+  //     {
+  //         "text": "5번",
+  //         "id": 1708391956858,
+  //         "category": "TO_DO"
+  //     },
+  //     {
+  //         "text": "4번",
+  //         "id": 1708391956033,
+  //         "category": "TO_DO"
+  //     },
+  //     {
+  //         "text": "3번",
+  //         "id": 1708391955300,
+  //         "category": "TO_DO"
+  //     },
+  //     {
+  //         "text": "2번",
+  //         "id": 1708391954489,
+  //         "category": "TO_DO"
+  //     },
+  //     {
+  //         "text": "1번",
+  //         "id": 1708391953536,
+  //         "category": "TO_DO"
+  //     }
+  // ]
+
+  // 위에 목록 중에 특정 todo의 카테고리를 바꾸기 위해
+  // 1. id를 기준으로 어떤 todo를 클릭했는지 찾아야한다! -> array안에 있는 object의 index를 찾기
 
   // 제출한 데이터 확인 -> CreateToDo.tsx 파일로 이동
   // const handleValid = ({ toDo }: IForm) => {
