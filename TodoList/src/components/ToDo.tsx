@@ -1,7 +1,7 @@
 import { useSetRecoilState } from 'recoil';
 import { IToDo, toDoState } from '../atoms';
 
-function ToDo({ text, category }: IToDo) {
+function ToDo({ text, category, id }: IToDo) {
   // Recoil - useSetRecoilState() : atom의 값 변경을 위한 modifier 함수
   const setToDos = useSetRecoilState(toDoState);
 
@@ -15,8 +15,14 @@ function ToDo({ text, category }: IToDo) {
     const {
       currentTarget: { name },
     } = event;
+
+    setToDos((old) => {
+      // 선택한 todo의 id 가져오기
+      const targetIndex = old.findIndex((toDo) => toDo.id === id);
+      console.log(targetIndex);
+      return old;
+    });
   };
-  console.log('i clicked :', name);
 
   return (
     <li>
