@@ -71,41 +71,13 @@ function ToDoList() {
     <div>
       <h1>To Dos</h1>
       <hr />
+      <select name="" id="">
+        <option value="To_Do">To Do</option>
+        <option value="DOING">Doing</option>
+        <option value="DONE">Done</option>
+      </select>
       {/* To Do 생성 */}
       <CreateToDO />
-
-      <h2>To DO</h2>
-      {/* toDo 목록 */}
-      <ul>
-        {toDo.map((toDo) => (
-          // ❗️ 위 아래 같은 의미 이유 -> ?? 속성이 같아서
-          // <ToDo key={toDo.id} id={toDo.id} text={toDo.text} category={toDo.category} />
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
-      </ul>
-      <hr />
-
-      <h2>DOING</h2>
-      {/* DOING 목록 */}
-      <ul>
-        {doing.map((toDo) => (
-          // ❗️ 위 아래 같은 의미 이유 -> ?? 속성이 같아서
-          // <ToDo key={toDo.id} id={toDo.id} text={toDo.text} category={toDo.category} />
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
-      </ul>
-      <hr />
-
-      <h2>DONE</h2>
-      {/* toDo 목록 */}
-      <ul>
-        {done.map((toDo) => (
-          // ❗️ 위 아래 같은 의미 이유 -> ?? 속성이 같아서
-          // <ToDo key={toDo.id} id={toDo.id} text={toDo.text} category={toDo.category} />
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
-      </ul>
-      <hr />
     </div>
   );
 }
