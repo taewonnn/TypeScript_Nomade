@@ -27,12 +27,12 @@ function ToDo({ text, category, id }: IToDo) {
 
       // newToDo -> category를 바꾸기 위해 newToDo로 생성해서 category값을 새로운 값으로 바꿔준다.
       // 이 때 새로운 category의 값은 ?? => 이전에 유저가 버튼 클릭했을 때, 해당 버튼이 어떤 것인지 가져왔던 -> name!!
-      const newToDo = { text, id, category: name };
+      const newToDo = { text, id, category: name as any };
       console.log('수정', newToDo);
 
-      // oldToDo의 category를 newToDo의 category값으로 변경하면 완료!
+      // oldToDo의 category를 newToDo의 category값으로 변경하면 완료! => 배열의 원소 교체
 
-      return oldToDos;
+      return [...oldToDos.slice(0, targetIndex), newToDo, ...oldToDos.slice(targetIndex + 1)];
     });
   };
 
@@ -78,3 +78,23 @@ export default ToDo;
 //     </li>
 //   );
 // }
+
+// 💡 arr 원소 교체
+const food = ['pizza', 'mango', 'kimchi', 'kimbab'];
+
+// mango를 gam으로 바꾸고 싶다면?
+// 1. mango의 위치를 구한다.
+// 2. 배열을 두 부분으로 나눈다. mango 이전까지를 담은 배열 + mango 이후를 담은 배열
+// EX.
+// const front = food.slice(0,1)
+// const front = ['pizza'];
+
+// const back = food.slice(2)
+// const back = ['kimchi', 'kimbab'];
+
+// 3. front back 사이에 'gam' 추가
+
+// const newArr = [...front, 'gam', ...back]  // ['pizza', 'gam', 'kimchi', 'kimbab']
+
+// => 한번에
+// [...food.slice(0, 1), 'gam', ...food.slice(2)];
