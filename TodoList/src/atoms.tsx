@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 /** Interface Start */
 export interface IToDo {
@@ -11,4 +11,12 @@ export interface IToDo {
 export const toDoState = atom<IToDo[]>({
   key: ' toDo',
   default: [],
+});
+
+// selector : atoms의 output을 변형시키는 도구
+export const toDoSelector = selector({
+  key: 'toDoSelector',
+  get: ({ get }) => {
+    return 'hello';
+  },
 });
