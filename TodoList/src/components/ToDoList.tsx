@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { toDoState } from '../atoms';
+import { toDoSelector, toDoState } from '../atoms';
 import CreateToDO from './CreateToDo';
 import ToDo from './ToDo';
 
@@ -18,7 +18,7 @@ function ToDoList() {
 
   // value만 가져오기
   const toDos = useRecoilValue(toDoState);
-  console.log('to Do 작성 : ', toDos);
+  // console.log('to Do 작성 : ', toDos);
   // 결과 ->
   //   [
   //     {
@@ -47,9 +47,13 @@ function ToDoList() {
   //         "category": "TO_DO"
   //     }
   // ]
-
   // 위에 목록 중에 특정 todo의 카테고리를 바꾸기 위해
   // 1. id를 기준으로 어떤 todo를 클릭했는지 찾아야한다! -> array안에 있는 object의 index를 찾기
+
+  // selectortOutput
+  // const selectorOutput = useRecoilValue(toDoSelector);
+  // console.log(selectorOutput);
+  const [toDo, doing, done] = useRecoilValue(toDoSelector);
 
   // 제출한 데이터 확인 -> CreateToDo.tsx 파일로 이동
   // const handleValid = ({ toDo }: IForm) => {
@@ -69,14 +73,39 @@ function ToDoList() {
       <hr />
       {/* To Do 생성 */}
       <CreateToDO />
+
+      <h2>To DO</h2>
       {/* toDo 목록 */}
       <ul>
-        {toDos.map((toDo) => (
+        {toDo.map((toDo) => (
           // ❗️ 위 아래 같은 의미 이유 -> ?? 속성이 같아서
           // <ToDo key={toDo.id} id={toDo.id} text={toDo.text} category={toDo.category} />
           <ToDo key={toDo.id} {...toDo} />
         ))}
       </ul>
+      <hr />
+
+      <h2>DOING</h2>
+      {/* DOING 목록 */}
+      <ul>
+        {doing.map((toDo) => (
+          // ❗️ 위 아래 같은 의미 이유 -> ?? 속성이 같아서
+          // <ToDo key={toDo.id} id={toDo.id} text={toDo.text} category={toDo.category} />
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
+      <hr />
+
+      <h2>DONE</h2>
+      {/* toDo 목록 */}
+      <ul>
+        {done.map((toDo) => (
+          // ❗️ 위 아래 같은 의미 이유 -> ?? 속성이 같아서
+          // <ToDo key={toDo.id} id={toDo.id} text={toDo.text} category={toDo.category} />
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
+      <hr />
     </div>
   );
 }

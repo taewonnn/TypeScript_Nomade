@@ -17,6 +17,14 @@ export const toDoState = atom<IToDo[]>({
 export const toDoSelector = selector({
   key: 'toDoSelector',
   get: ({ get }) => {
-    return 'hello';
+    // 모든 toDOs 받아오기
+    const toDos = get(toDoState);
+    console.log('selector get 확인 :', toDos);
+    return [
+      // filter는 조건을 만족하는 값 배열로 리턴
+      toDos.filter((toDo) => toDo.category === 'TO_DO'),
+      toDos.filter((toDo) => toDo.category === 'DOING'),
+      toDos.filter((toDo) => toDo.category === 'DONE'),
+    ];
   },
 });
