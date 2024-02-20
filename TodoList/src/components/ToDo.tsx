@@ -16,11 +16,23 @@ function ToDo({ text, category, id }: IToDo) {
       currentTarget: { name },
     } = event;
 
-    setToDos((old) => {
+    setToDos((oldToDos) => {
       // 선택한 todo의 id 가져오기
-      const targetIndex = old.findIndex((toDo) => toDo.id === id);
-      console.log(targetIndex);
-      return old;
+      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      console.log('클릭한 타겟의 Index : ', targetIndex);
+
+      // 클릭한 특정 todo의 값(oldToDo) - > ex. {text: '4번', id: 1708392421566, category: 'TO_DO'}
+      const oldToDo = oldToDos[targetIndex];
+      console.log('기존', oldToDo);
+
+      // newToDo -> category를 바꾸기 위해 newToDo로 생성해서 category값을 새로운 값으로 바꿔준다.
+      // 이 때 새로운 category의 값은 ?? => 이전에 유저가 버튼 클릭했을 때, 해당 버튼이 어떤 것인지 가져왔던 -> name!!
+      const newToDo = { text, id, category: name };
+      console.log('수정', newToDo);
+
+      // oldToDo의 category를 newToDo의 category값으로 변경하면 완료!
+
+      return oldToDos;
     });
   };
 
