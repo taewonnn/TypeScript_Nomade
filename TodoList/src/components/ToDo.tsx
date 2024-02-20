@@ -27,7 +27,7 @@ function ToDo({ text, category, id }: IToDo) {
 
       // newToDo -> category를 바꾸기 위해 newToDo로 생성해서 category값을 새로운 값으로 바꿔준다.
       // 이 때 새로운 category의 값은 ?? => 이전에 유저가 버튼 클릭했을 때, 해당 버튼이 어떤 것인지 가져왔던 -> name!!
-      const newToDo = { text, id, category: name as any };
+      const newToDo = { text, id, category: name as IToDo['category'] };
       console.log('수정', newToDo);
 
       // oldToDo의 category를 newToDo의 category값으로 변경하면 완료! => 배열의 원소 교체
