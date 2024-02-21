@@ -29,7 +29,7 @@ export const toDoSelector = selector({
 
     /** category 가져오기 */
     const category = get(categoryState);
-    console.log('카테고리 : ', category);
+    // console.log('카테고리 : ', category);
 
     return toDos.filter((toDo) => toDo.category === category);
   },

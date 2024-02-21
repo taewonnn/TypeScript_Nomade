@@ -16,8 +16,8 @@ function ToDoList() {
   // 💡 useSetRecoilState: atom의 값 변경을 위한 modifier 함수
   // const modFn = useSetRecoilState(toDoState);
 
-  // value만 가져오기
-  const toDos = useRecoilValue(toDoState);
+  // todo value만 가져오기
+  const toDos = useRecoilValue(toDoSelector);
   // console.log('to Do 작성 : ', toDos);
   // 결과 ->
   //   [
@@ -53,10 +53,7 @@ function ToDoList() {
   // selectortOutput
   // const selectorOutput = useRecoilValue(toDoSelector);
   // console.log(selectorOutput);
-  const [toDo, doing, done] = useRecoilValue(toDoSelector);
-
-  /** 현재의 값과 값을 수정하는 함수를 가져오는 훅 ->  */
-  const [category, setCategory] = useRecoilState(categoryState);
+  // const [toDo, doing, done] = useRecoilValue(toDoSelector);
 
   // 제출한 데이터 확인 -> CreateToDo.tsx 파일로 이동
   // const handleValid = ({ toDo }: IForm) => {
@@ -70,9 +67,11 @@ function ToDoList() {
   //   setValue('toDo', '');
   // };
 
+  /** 현재의 값과 값을 수정하는 함수를 가져오는 훅 ->  */
+  const [category, setCategory] = useRecoilState(categoryState);
+
   /** sekect의 변화를 감지하는 함수 */
   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-    // console.log(event.currentTarget.value);
     const {
       currentTarget: { value },
     } = event;
