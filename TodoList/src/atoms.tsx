@@ -29,9 +29,10 @@ export const toDoState = atom<IToDo[]>({
   default: [],
 });
 
-/** selector : atoms의 output을 변형시키는 도구 */
+/** selector : state을 가져와서 조금 변형해주는 함수 /   atoms의 output을 변형시키는 도구 */
 export const toDoSelector = selector({
   key: 'toDoSelector',
+  /** get -> selector가 어떤 것을 반환할지 결정 */
   get: ({ get }) => {
     /** 모든 toDOs 받아오기 */
     const toDos = get(toDoState);
