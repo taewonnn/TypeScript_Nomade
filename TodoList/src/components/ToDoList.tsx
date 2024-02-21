@@ -56,7 +56,7 @@ function ToDoList() {
   const [toDo, doing, done] = useRecoilValue(toDoSelector);
 
   /** 현재의 값과 값을 수정하는 함수를 가져오는 훅 ->  */
-  const [value, modFn] = useRecoilState(categoryState);
+  const [category, setCategory] = useRecoilState(categoryState);
 
   // 제출한 데이터 확인 -> CreateToDo.tsx 파일로 이동
   // const handleValid = ({ toDo }: IForm) => {
