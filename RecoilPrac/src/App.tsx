@@ -7,7 +7,8 @@ function App() {
   const [minutes, setMinutes] = useRecoilState(minuteState);
 
   /** hours 값 가져오기 */
-  const hours = useRecoilValue(hoursSelector);
+  //const hours = useRecoilValue(hoursSelector);
+  const [hours, setHours] = useRecoilState(hoursSelector);
 
   const onMinutesChange = (event: React.FormEvent<HTMLInputElement>) => {
     const {
@@ -18,10 +19,18 @@ function App() {
     // Ex.  +'1'  => 1
     setMinutes(+value);
   };
+
+  const onHoursChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    setHours(+value);
+  };
+
   return (
     <div>
       <input value={minutes} onChange={onMinutesChange} type="number" placeholder="Minutes" />
-      <input value={hours} type="number" placeholder="Hours" />
+      <input value={hours} onChange={onHoursChange} type="number" placeholder="Hours" />
     </div>
   );
 }
