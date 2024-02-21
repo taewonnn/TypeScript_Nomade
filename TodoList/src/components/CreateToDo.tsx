@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { useSetRecoilState } from 'recoil';
-import { toDoState } from '../atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { categoryState, toDoState } from '../atoms';
 
 /** Interface Start */
 interface IForm {
@@ -11,18 +11,21 @@ interface IForm {
 function CreateToDO() {
   const { register, handleSubmit, setValue } = useForm<IForm>();
 
-  // toDoState 바꾸는 함수만 가져오기
+  /** toDoState 바꾸는 함수만 가져오기 */
   const setToDos = useSetRecoilState(toDoState);
 
-  // 제출한 데이터 확인
+  /** category 값만 가져오기 */
+  const category = useRecoilValue(categoryState);
+
+  /** 제출한 데이터 확인 */
   const handleValid = ({ toDo }: IForm) => {
     console.log('제출 add to do : ', toDo);
 
-    // 제출한 값 atom 배열에 저장
-    setToDos((oldToDos) => [{ text: toDo, id: Date.now(), category: 'TO_DO' }, ...oldToDos]);
+    /** 제출한 값 atom 배열에 저장 */
+    setToDos((oldToDos) => [{ text: toDo, id: Date.now(), category: category }, ...oldToDos]);
     console.log('atom toDos 확인 :', toDo);
 
-    // 제출하고 난 후 Input 깂 비워주기
+    /** 제출하고 난 후 Input 깂 비워주기 */
     setValue('toDo', '');
   };
 
