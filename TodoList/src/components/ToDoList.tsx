@@ -1,5 +1,5 @@
-import { useRecoilValue } from 'recoil';
-import { toDoSelector, toDoState } from '../atoms';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { categoryState, toDoSelector, toDoState } from '../atoms';
 import CreateToDO from './CreateToDo';
 import ToDo from './ToDo';
 
@@ -55,6 +55,9 @@ function ToDoList() {
   // console.log(selectorOutput);
   const [toDo, doing, done] = useRecoilValue(toDoSelector);
 
+  /** 현재의 값과 값을 수정하는 함수를 가져오는 훅 ->  */
+  const [value, modFn] = useRecoilState(categoryState);
+
   // 제출한 데이터 확인 -> CreateToDo.tsx 파일로 이동
   // const handleValid = ({ toDo }: IForm) => {
   //   console.log('제출 add to do : ', toDo);
@@ -67,15 +70,26 @@ function ToDoList() {
   //   setValue('toDo', '');
   // };
 
+  /** sekect의 변화를 감지하는 함수 */
+  const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
+    // console.log(event.currentTarget.value);
+    const {
+      currentTarget: { value },
+    } = event;
+    console.log('선택한 option :', value);
+  };
+
   return (
     <div>
       <h1>To Dos</h1>
       <hr />
-      <select name="" id="">
-        <option value="To_Do">To Do</option>
+
+      <select onInput={onInput}>
+        <option value="TO_DO">To Do</option>
         <option value="DOING">Doing</option>
         <option value="DONE">Done</option>
       </select>
+
       {/* To Do 생성 */}
       <CreateToDO />
     </div>
