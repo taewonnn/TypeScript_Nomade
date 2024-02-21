@@ -76,7 +76,7 @@ function ToDoList() {
       currentTarget: { value },
     } = event;
     console.log('선택한 option :', value);
-    setCategory(value);
+    setCategory(value as any);
   };
 
   return (
