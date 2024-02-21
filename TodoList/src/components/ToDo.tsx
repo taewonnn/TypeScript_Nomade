@@ -1,5 +1,5 @@
 import { useSetRecoilState } from 'recoil';
-import { IToDo, toDoState } from '../atoms';
+import { Categories, IToDo, toDoState } from '../atoms';
 
 function ToDo({ text, category, id }: IToDo) {
   // Recoil - useSetRecoilState() : atom의 값 변경을 위한 modifier 함수
@@ -27,7 +27,7 @@ function ToDo({ text, category, id }: IToDo) {
 
       // newToDo -> category를 바꾸기 위해 newToDo로 생성해서 category값을 새로운 값으로 바꿔준다.
       // 이 때 새로운 category의 값은 ?? => 이전에 유저가 버튼 클릭했을 때, 해당 버튼이 어떤 것인지 가져왔던 -> name!!
-      const newToDo = { text, id, category: name as IToDo['category'] };
+      const newToDo = { text, id, category: name as any };
       console.log('수정', newToDo);
 
       // oldToDo의 category를 newToDo의 category값으로 변경하면 완료! => 배열의 원소 교체
@@ -39,18 +39,18 @@ function ToDo({ text, category, id }: IToDo) {
   return (
     <li>
       <span>{text}</span>
-      {category !== 'TO_DO' && (
-        <button name="TO_DO" onClick={onChangeCat}>
+      {category !== Categories.TO_DO && (
+        <button name={Categories.TO_DO} onClick={onChangeCat}>
           To Do
         </button>
       )}
-      {category !== 'DOING' && (
-        <button name="DOING" onClick={onChangeCat}>
+      {category !== Categories.DOING && (
+        <button name={Categories.DOING} onClick={onChangeCat}>
           Doing
         </button>
       )}
-      {category !== 'DONE' && (
-        <button name="DONE" onClick={onChangeCat}>
+      {category !== Categories.DONE && (
+        <button name={Categories.DONE} onClick={onChangeCat}>
           Done
         </button>
       )}

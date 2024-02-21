@@ -3,9 +3,9 @@ import { atom, selector } from 'recoil';
 /** Interface Start */
 
 export enum Categories {
-  'TO_DO',
-  'DOING',
-  'DONE',
+  'TO_DO' = 'TO_DO',
+  'DOING' = 'DOING',
+  'DONE' = 'DONE',
 }
 
 // type categories = 'TO_DO' | 'DOING' | 'DONE';
