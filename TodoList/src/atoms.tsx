@@ -26,11 +26,11 @@ export const toDoSelector = selector({
     /** 모든 toDOs 받아오기 */
     const toDos = get(toDoState);
     console.log('selector get 확인 :', toDos);
-    return [
-      /** filter는 조건을 만족하는 값 배열로 리턴 */
-      toDos.filter((toDo) => toDo.category === 'TO_DO'),
-      toDos.filter((toDo) => toDo.category === 'DOING'),
-      toDos.filter((toDo) => toDo.category === 'DONE'),
-    ];
+
+    /** category 가져오기 */
+    const category = get(categoryState);
+    console.log('카테고리 : ', category);
+
+    return toDos.filter((toDo) => toDo.category === category);
   },
 });

@@ -93,6 +93,10 @@ function ToDoList() {
 
       {/* To Do 생성 */}
       <CreateToDO />
+
+      {toDos?.map((toDo) => (
+        <ToDo key={toDo.id} {...toDo} />
+      ))}
     </div>
   );
 }
