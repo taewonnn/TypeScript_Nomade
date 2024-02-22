@@ -11,7 +11,9 @@ function App() {
             <ul ref={magic.innerRef} {...magic.droppableProps}>
               <Draggable draggableId="first" index={0}>
                 {(magic) => (
-                  <li ref={magic.innerRef} {...magic.draggableProps} {...magic.dragHandleProps}>
+                  <li ref={magic.innerRef} {...magic.draggableProps}>
+                    {/* dragHandleProps -> 해당 영역만 클릭하여 움직일 수 있게하는 속성 */}
+                    <span {...magic.dragHandleProps}>🔥</span>
                     One
                   </li>
                 )}
@@ -19,7 +21,8 @@ function App() {
 
               <Draggable draggableId="second" index={1}>
                 {(magic) => (
-                  <li ref={magic.innerRef} {...magic.draggableProps} {...magic.dragHandleProps}>
+                  <li ref={magic.innerRef} {...magic.draggableProps}>
+                    <span {...magic.dragHandleProps}>🔥</span>
                     Two
                   </li>
                 )}
