@@ -88,7 +88,7 @@ function App() {
 export default App;
 
 /** 
- * splice
+ * splice -> 원본 값을 변경
 Arr.splice('지우고 싶은 item이 시작하는 위치', '지우고싶은 Item 개수')
 Arr.splice('넣고싶은 item이 시작하는 위치', '지우고싶은 Item 개수 없으면 0','넣고싶은 item')
 
