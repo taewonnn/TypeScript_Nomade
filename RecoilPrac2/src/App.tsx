@@ -54,6 +54,7 @@ function App() {
   //   // console.log('arguments 확인 :', argum); // {"draggableId": "b","type": "DEFAULT","source": {    "index": 1,    "droppableId": "one"},"reason": "DROP","mode": "FLUID","destination": {    "droppableId": "one",    "index": 2},"combine": null}
   //   const destination = argum.destination?.index;
   // };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
@@ -85,3 +86,21 @@ function App() {
 }
 
 export default App;
+
+/** 
+ * splice
+Arr.splice('지우고 싶은 item이 시작하는 위치', '지우고싶은 Item 개수')
+Arr.splice('넣고싶은 item이 시작하는 위치', '지우고싶은 Item 개수 없으면 0','넣고싶은 item')
+
+
+const x = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+'a'를 빼고싶을 때,
+x.splice(0, 1)  // 지운 item이 어떤 것인지 알려줌 ['a']
+console.log(x);  // (5) ['b', 'c', 'd', 'e', 'f']
+
+
+'a'를 다시 두번째 Index에 넣고싶을 때,
+x.splice(2, 0, 'a');
+console.log(x)  // ['b', 'c', 'a', 'd', 'e', 'f']
+ */
