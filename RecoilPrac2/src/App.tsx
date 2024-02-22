@@ -1,14 +1,14 @@
 import React from 'react';
-import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { toDoState } from './atoms';
-import DraggableCard from './Components/DraggableCad';
+import Board from './Components/Board';
 
 /** Style Start */
 const Wrapper = styled.div`
   display: flex;
-  max-width: 480px;
+  max-width: 680px;
   width: 100%;
   margin: 0 auto;
   justify-content: center;
@@ -19,17 +19,9 @@ const Wrapper = styled.div`
 const Boards = styled.div`
   display: grid;
   width: 100%;
+  gap: 10px;
   grid-template-columns: repeat(1, 1fr);
 `;
-
-const Board = styled.div`
-  padding: 20px 10px;
-  padding-top: 30px;
-  background-color: ${(props) => props.theme.boardColor};
-  border-radius: 5px;
-  min-height: 200px;
-`;
-
 /** Style End */
 
 function App() {
@@ -45,21 +37,17 @@ function App() {
     if (!destination) return;
 
     /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
-    setToDos((currentToDos) => {
-      console.log('Delete item on', source.index);
-
-      /** 기존 currentToDos 원본을 바꿀 수 없으니 복사 */
-      const toDosCopy = [...currentToDos];
-
-      /** 1.선택한 카드 배열에서 지우기 source.index */
-      toDosCopy.splice(source.index, 1);
-      console.log('복사 배열에서 옮긴 카드 지우기: ', toDosCopy);
-
-      /** 2. 지운 카드를 새로운 목적지 Index에 다시 넣어주기 */
-      toDosCopy.splice(destination?.index, 0, draggableId);
-
-      return toDosCopy;
-    });
+    //setToDos((currentToDos) => {
+    // console.log('Delete item on', source.index);
+    // /** 기존 currentToDos 원본을 바꿀 수 없으니 복사 */
+    // const toDosCopy = [...currentToDos];
+    // /** 1.선택한 카드 배열에서 지우기 source.index */
+    // toDosCopy.splice(source.index, 1);
+    // console.log('복사 배열에서 옮긴 카드 지우기: ', toDosCopy);
+    // /** 2. 지운 카드를 새로운 목적지 Index에 다시 넣어주기 */
+    // toDosCopy.splice(destination?.index, 0, draggableId);
+    // return toDosCopy;
+    // });
   };
   /** argum을 하나하나 정의하는 케이스 */
   // const onDragEnd = ({ ...argum }: DropResult) => {
@@ -72,16 +60,9 @@ function App() {
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
         <Boards>
-          <Droppable droppableId="one">
-            {(magic) => (
-              <Board ref={magic.innerRef} {...magic.droppableProps}>
-                {toDos.map((toDo, index) => (
-                  <DraggableCard toDo={toDo} index={index} key={toDo} />
-                ))}
-                {magic.placeholder}
-              </Board>
-            )}
-          </Droppable>
+          {Object.keys(toDos).map((boardId) => (
+            <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
+          ))}
         </Boards>
       </Wrapper>
     </DragDropContext>
@@ -90,20 +71,42 @@ function App() {
 
 export default App;
 
-/** 
- * splice -> 원본 값을 변경
-Arr.splice('지우고 싶은 item이 시작하는 위치', '지우고싶은 Item 개수')
-Arr.splice('넣고싶은 item이 시작하는 위치', '지우고싶은 Item 개수 없으면 0','넣고싶은 item')
+/**
+  💡 splice -> 원본 값을 변경
+  Arr.splice('지우고 싶은 item이 시작하는 위치', '지우고싶은 Item 개수')
+  Arr.splice('넣고싶은 item이 시작하는 위치', '지우고싶은 Item 개수 없으면 0','넣고싶은 item')
+
+  const x = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+  'a'를 빼고싶을 때,
+  x.splice(0, 1)  // 지운 item이 어떤 것인지 알려줌 ['a']
+  console.log(x);
+  (5) ['b', 'c', 'd', 'e', 'f']
+
+  'a'를 다시 두번째 Index에 넣고싶을 때,
+  x.splice(2, 0, 'a');
+  console.log(x)  // ['b', 'c', 'a', 'd', 'e', 'f']
+ */
+
+/**
+  💡 object loop
+
+  const toDos = {
+    x: ['a', 'b'],
+    z: ['n', 't'],
+  }
+
+  💡Objext.keys()  -> object의 key만 뽑아서 array로 만들어줌
+  Object.keys(toDos)    -> ['x','y']
+
+  Object.keys(toDos).map(boardId => toDos[boardId])   
+  결과 ->
+  0: (2) ['a', 'b']
+  1: (2) ['n', 't']
+
+  💡Objext.values()  -> object의 values만 뽑아서 array로 만들어줌
+  Object.values(toDos)   -> (2) [Array(2), Array(2)]  0: (2) ['a', 'b']  1: (2) ['n', 't']
 
 
-const x = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-'a'를 빼고싶을 때,
-x.splice(0, 1)  // 지운 item이 어떤 것인지 알려줌 ['a']
-console.log(x);  // (5) ['b', 'c', 'd', 'e', 'f']
-
-
-'a'를 다시 두번째 Index에 넣고싶을 때,
-x.splice(2, 0, 'a');
-console.log(x)  // ['b', 'c', 'a', 'd', 'e', 'f']
  */
