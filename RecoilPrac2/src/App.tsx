@@ -51,15 +51,19 @@ function App() {
 
     /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
     setToDos((currentToDos) => {
+      console.log('Delete item on', source.index);
+
       /** 기존 currentToDos 원본을 바꿀 수 없으니 복사 */
-      const copyToDos = [...currentToDos];
+      const toDosCopy = [...currentToDos];
+
       /** 1.선택한 카드 배열에서 지우기 source.index */
-      copyToDos.splice(source.index, 1);
+      toDosCopy.splice(source.index, 1);
+      console.log('복사 배열에서 옮긴 카드 지우기: ', toDosCopy);
 
       /** 2. 지운 카드를 새로운 목적지 Index에 다시 넣어주기 */
-      copyToDos.splice(destination?.index, 0, draggableId);
+      toDosCopy.splice(destination?.index, 0, draggableId);
 
-      return copyToDos;
+      return toDosCopy;
     });
   };
   /** argum을 하나하나 정의하는 케이스 */
