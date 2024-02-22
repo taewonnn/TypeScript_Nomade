@@ -1,5 +1,14 @@
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
+
+const Board = styled.div`
+  background-color: ${(props) => props.theme.boardColor};
+`;
+
+const Card = styled.div`
+  background-color: ${(props) => props.theme.cardColor};
+`;
 
 function App() {
   const onDragEnd = () => {};
