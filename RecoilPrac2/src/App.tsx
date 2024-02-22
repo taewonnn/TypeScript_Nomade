@@ -1,6 +1,8 @@
 import React from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { toDoState } from './atoms';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -35,10 +37,23 @@ const Card = styled.div`
 `;
 /** Style End */
 
-const toDos = ['a', 'b', 'c', 'd', 'e', 'f'];
-
 function App() {
-  const onDragEnd = () => {};
+  /** atom의 value + atom을 수정하는함수 가져오기 */
+  const [toDos, setToDos] = useRecoilState(toDoState);
+  console.log(toDos);
+
+  /** drag가 끝났을 때 실행되는 함수 */
+  const onDragEnd = ({ destination, source }: DropResult) => {
+    console.log('draggin finished');
+
+    /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
+  };
+  /** argum을 하나하나 정의하는 케이스 */
+  // const onDragEnd = ({ ...argum }: DropResult) => {
+  //   // console.log('darggin finished');
+  //   // console.log('arguments 확인 :', argum); // {"draggableId": "b","type": "DEFAULT","source": {    "index": 1,    "droppableId": "one"},"reason": "DROP","mode": "FLUID","destination": {    "droppableId": "one",    "index": 2},"combine": null}
+  //   const destination = argum.destination?.index;
+  // };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
@@ -47,7 +62,7 @@ function App() {
             {(magic) => (
               <Board ref={magic.innerRef} {...magic.droppableProps}>
                 {toDos.map((toDo, index) => (
-                  <Draggable draggableId={toDo} index={index}>
+                  <Draggable key={index} draggableId={toDo} index={index}>
                     {(magic) => (
                       <Card
                         ref={magic.innerRef}
