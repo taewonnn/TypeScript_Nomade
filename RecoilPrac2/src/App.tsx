@@ -40,13 +40,27 @@ const Card = styled.div`
 function App() {
   /** atom의 value + atom을 수정하는함수 가져오기 */
   const [toDos, setToDos] = useRecoilState(toDoState);
-  console.log(toDos);
+  // console.log(toDos);
 
   /** drag가 끝났을 때 실행되는 함수 */
-  const onDragEnd = ({ destination, source }: DropResult) => {
+  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
     console.log('draggin finished');
 
+    /** 카드를 옮기다가 그대로 두는 경우 -> 별도 action 취하지 않게 */
+    if (!destination) return;
+
     /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
+    setToDos((currentToDos) => {
+      /** 기존 currentToDos 원본을 바꿀 수 없으니 복사 */
+      const copyToDos = [...currentToDos];
+      /** 1.선택한 카드 배열에서 지우기 source.index */
+      copyToDos.splice(source.index, 1);
+
+      /** 2. 지운 카드를 새로운 목적지 Index에 다시 넣어주기 */
+      copyToDos.splice(destination?.index, 0, draggableId);
+
+      return copyToDos;
+    });
   };
   /** argum을 하나하나 정의하는 케이스 */
   // const onDragEnd = ({ ...argum }: DropResult) => {
@@ -63,7 +77,7 @@ function App() {
             {(magic) => (
               <Board ref={magic.innerRef} {...magic.droppableProps}>
                 {toDos.map((toDo, index) => (
-                  <Draggable key={index} draggableId={toDo} index={index}>
+                  <Draggable key={toDo} draggableId={toDo} index={index}>
                     {(magic) => (
                       <Card
                         ref={magic.innerRef}
