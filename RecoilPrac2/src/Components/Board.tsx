@@ -20,8 +20,8 @@ const Title = styled.h2`
   margin-bottom: 10px;
   font-size: 18px;
 `;
-const Area = styled.div`
-  background-color: blue;
+const Area = styled.div<{ isDraggingOver: boolean }>`
+  background-color: ${(props) => (props.isDraggingOver ? 'pink' : 'blue')};
   flex-grow: 1;
 `;
 /** Style End */
@@ -38,8 +38,12 @@ function Board({ toDos, boardId }: IBoardProps) {
     <Wrapper>
       <Title>{boardId}</Title>
       <Droppable droppableId={boardId}>
-        {(magic) => (
-          <Area ref={magic.innerRef} {...magic.droppableProps}>
+        {(magic, snapshot) => (
+          <Area
+            isDraggingOver={snapshot.isDraggingOver}
+            ref={magic.innerRef}
+            {...magic.droppableProps}
+          >
             {toDos.map((toDo, index) => (
               <DraggableCard toDo={toDo} index={index} key={toDo} />
             ))}
