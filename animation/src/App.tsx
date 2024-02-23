@@ -20,19 +20,28 @@ const Box = styled(motion.div)`
 `;
 /**Style End */
 
+/** animation - Ex1 - 축약 */
+const myVars = {
+  start: { scale: 0 },
+  end: { scale: 1, rotateZ: 360, transition: { type: 'spring', bounce: 0.5, delay: 0.5 } },
+};
+
 function App() {
   return (
     <Wrapper>
-      {/* animation - Ex1 */}
+      {/* animation - Ex1 - 축약 */}
+      <Box variants={myVars} initial="start" animate="end"></Box>
 
-      <Box
+      {/* animation - Ex1 */}
+      {/* <Box
         // 초기값
         initial={{ scale: 0 }}
         // 동작
         animate={{ scale: 1, rotateZ: 360 }}
         // 최종 스타일
         transition={{ type: 'spring', bounce: 0.5, delay: 0.5 }}
-      ></Box>
+      ></Box> */}
+
       {/* motion 사용법 Ex. */}
       {/* <Box transition={{ duration: 3 }} animate={{ borderRadius: '100px' }} /> */}
       {/* <motion.div>1</motion.div> */}
