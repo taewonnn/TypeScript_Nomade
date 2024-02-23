@@ -20,8 +20,10 @@ const Title = styled.h2`
   margin-bottom: 10px;
   font-size: 18px;
 `;
-const Area = styled.div<{ isDraggingOver: boolean }>`
-  background-color: ${(props) => (props.isDraggingOver ? 'pink' : 'blue')};
+
+const Area = styled.div<IAreaProps>`
+  background-color: ${(props) =>
+    props.isDraggingOver ? 'pink' : props.isDraggingFormThis ? 'red' : 'blue'};
   flex-grow: 1;
 `;
 /** Style End */
@@ -30,6 +32,11 @@ const Area = styled.div<{ isDraggingOver: boolean }>`
 interface IBoardProps {
   toDos: string[];
   boardId: string;
+}
+
+interface IAreaProps {
+  isDraggingOver: boolean;
+  isDraggingFormThis: boolean;
 }
 /**Interface End */
 
@@ -41,6 +48,7 @@ function Board({ toDos, boardId }: IBoardProps) {
         {(magic, snapshot) => (
           <Area
             isDraggingOver={snapshot.isDraggingOver}
+            isDraggingFormThis={Boolean(snapshot.draggingFromThisWith)}
             ref={magic.innerRef}
             {...magic.droppableProps}
           >
