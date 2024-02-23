@@ -36,7 +36,7 @@ function App() {
     console.log('info 확인 :', info);
     const { destination, draggableId, source } = info;
 
-    // 한 보드 안에서만 움직이게 하기 위해 같은 보드에서의 움직임인지 확인하기 위해 droppableId 같은지 체크
+    // 한 보드 안에서 움직일 때,
     if (destination?.droppableId === source.droppableId) {
       setToDos((allBoards) => {
         // 일단 모든 보드를 가져온 후, 수정이 일어난 보드의 배열만 복사한다.
