@@ -36,7 +36,10 @@ function App() {
     console.log('info 확인 :', info);
     const { destination, draggableId, source } = info;
 
-    // 한 보드 안에서 움직일 때,
+    // 카드를 옮기다가 그대로 두는 경우 -> 별도 action 취하지 않게
+    if (!destination) return;
+
+    // 한 보드 안에서 카드를 옮길 때,
     if (destination?.droppableId === source.droppableId) {
       setToDos((allBoards) => {
         // 일단 모든 보드를 가져온 후, 수정이 일어난 보드의 배열만 복사한다.
@@ -51,15 +54,32 @@ function App() {
         };
       });
     }
+    // 서로 다른 보드 간 카드를 옮길 때,
+    if (destination?.droppableId !== source.droppableId) {
+      // 두개의 복사본을 만들어야 한다 => 선택한 카드의 배열 + 그 카드를 옮기기로 한 보드의 배열
+      setToDos((allBoards) => {
+        const sourceBoard = [...allBoards[source.droppableId]];
+        const destinationBoard = [...allBoards[destination.droppableId]];
+
+        // 기존 보드에서 선택한 카드를 지워주기
+        sourceBoard.splice(source.index, 1);
+
+        // 이동하고자 하는 보드에 선택한 카드 추가해주기
+        destinationBoard.splice(destination?.index, 0, draggableId);
+
+        return {
+          ...allBoards,
+          [source.droppableId]: sourceBoard,
+          [destination.droppableId]: destinationBoard,
+        };
+      });
+    }
   };
 
   /** drag가 끝났을 때 실행되는 함수 */
   /** case2:  필요한 파라미터만 꺼내 쓰는 케이스 */
   //const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
   //   console.log('draggin finished');
-
-  // 카드를 옮기다가 그대로 두는 경우 -> 별도 action 취하지 않게
-  // if (!destination) return;
 
   /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
   //setToDos((currentToDos) => {
