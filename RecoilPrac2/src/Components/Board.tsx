@@ -9,6 +9,8 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.boardColor};
   border-radius: 5px;
   min-height: 200px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.h2`
