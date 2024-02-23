@@ -41,10 +41,11 @@ function App() {
 
     // 한 보드 안에서 카드를 옮길 때,
     if (destination?.droppableId === source.droppableId) {
+      console.log('같은 카드 Info: ', info);
       setToDos((allBoards) => {
         // 일단 모든 보드를 가져온 후, 수정이 일어난 보드의 배열만 복사한다.
         const boardCopy = [...allBoards[source.droppableId]];
-
+        // 옮기려고 하는 카드의 Obj 전체를 가져온다.
         const taskObj = boardCopy[source.index];
 
         // 수정이 일어난 보드 복사해서 카드 옮겨주기

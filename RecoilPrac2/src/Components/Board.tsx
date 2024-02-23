@@ -3,7 +3,8 @@ import { Droppable } from 'react-beautiful-dnd';
 import DraggableCard from './DraggableCad';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { ITodo } from '../atoms';
+import { ITodo, toDoState } from '../atoms';
+import { useSetRecoilState } from 'recoil';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -76,10 +77,27 @@ function Board({ toDos, boardId }: IBoardProps) {
   const onValid = ({ toDo }: IForm) => {
     console.log('제출한 data 확인: ', toDo);
 
+    const newToDo = {
+      id: Date.now(),
+      text: toDo,
+    };
+    console.log('작성한 내용 obj에 작성시간과 함께 저장 :', newToDo);
+
+    // 저장한 obj를 atom 배열에 넘겨주기
+    setToDos((allBoards) => {
+      return {
+        ...allBoards,
+        [boardId]: [...allBoards[boardId], newToDo],
+      };
+    });
+
     // 제출 후 input 다시 비워주기
     setValue('toDo', '');
   };
 
+  /** useSetRecoilState  */
+  // todo 조작할 수 있는 함수
+  const setToDos = useSetRecoilState(toDoState);
   return (
     <Wrapper>
       <Title>{boardId}</Title>
