@@ -38,13 +38,15 @@ function App() {
 
     // 한 보드 안에서만 움직이게 하기 위해 같은 보드에서의 움직임인지 확인하기 위해 droppableId 같은지 체크
     if (destination?.droppableId === source.droppableId) {
-      // 수정이 일어난 보드의 배열만 복사한다.
-      setToDos((currentToDos) => {
-        const boardCopy = [...currentToDos[source.droppableId]];
+      setToDos((allBoards) => {
+        // 일단 모든 보드를 가져온 후, 수정이 일어난 보드의 배열만 복사한다.
+        const boardCopy = [...allBoards[source.droppableId]];
+        // 수정이 일어난 보드 복사해서 카드 옮겨주기
         boardCopy.splice(source.index, 1);
         boardCopy.splice(destination?.index, 0, draggableId);
         return {
-          ...currentToDos,
+          // 모든 보드를 리턴 해주는데, 수정한 보드는 위에서 복사로 옮긴 배열로 넣어주기
+          ...allBoards,
           [source.droppableId]: boardCopy,
         };
       });
