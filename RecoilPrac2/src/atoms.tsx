@@ -9,7 +9,8 @@ interface IToDoState {
 export const toDoState = atom<IToDoState>({
   key: 'todo',
   default: {
-    TO_DO: ['a', 'b'],
+    // To Do에만 '' 붙는 이유 -> To Do 사이 공백 때문
+    'To Do': ['a', 'b'],
     Doing: ['c', 'd', 'e'],
     Done: ['f'],
   },
