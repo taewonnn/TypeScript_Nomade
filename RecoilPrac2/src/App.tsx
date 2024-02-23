@@ -30,31 +30,48 @@ function App() {
   // console.log(toDos);
 
   /** drag가 끝났을 때 실행되는 함수 */
-  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
-    console.log('draggin finished');
+  /** case2:  argum을 한 번에 받아와서 꺼내 쓰는  케이스 */
+  const onDragEnd = (info: DropResult) => {
+    console.log('darggin finished');
+    console.log('info 확인 :', info);
+    const { destination, draggableId, source } = info;
 
-    /** 카드를 옮기다가 그대로 두는 경우 -> 별도 action 취하지 않게 */
-    if (!destination) return;
-
-    /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
-    //setToDos((currentToDos) => {
-    // console.log('Delete item on', source.index);
-
-    // /** 기존 currentToDos 원본을 바꿀 수 없으니 복사 */
-    // const toDosCopy = [...currentToDos];
-    // /** 1.선택한 카드 배열에서 지우기 source.index */
-    // toDosCopy.splice(source.index, 1);
-    // console.log('복사 배열에서 옮긴 카드 지우기: ', toDosCopy);
-    // /** 2. 지운 카드를 새로운 목적지 Index에 다시 넣어주기 */
-    // toDosCopy.splice(destination?.index, 0, draggableId);
-    // return toDosCopy;
-    // });
+    // 한 보드 안에서만 움직이게 하기 위해 같은 보드에서의 움직임인지 확인하기 위해 droppableId 같은지 체크
+    if (destination?.droppableId === source.droppableId) {
+      // 수정이 일어난 보드의 배열만 복사한다.
+      setToDos((currentToDos) => {
+        const boardCopy = [...currentToDos[source.droppableId]];
+        boardCopy.splice(source.index, 1);
+        boardCopy.splice(destination?.index, 0, draggableId);
+        return {
+          ...currentToDos,
+          [source.droppableId]: boardCopy,
+        };
+      });
+    }
   };
-  /** argum을 하나하나 정의하는 케이스 */
-  // const onDragEnd = ({ ...argum }: DropResult) => {
-  //   // console.log('darggin finished');
-  //   // console.log('arguments 확인 :', argum); // {"draggableId": "b","type": "DEFAULT","source": {    "index": 1,    "droppableId": "one"},"reason": "DROP","mode": "FLUID","destination": {    "droppableId": "one",    "index": 2},"combine": null}
-  //   const destination = argum.destination?.index;
+
+  /** drag가 끝났을 때 실행되는 함수 */
+  /** case2:  필요한 파라미터만 꺼내 쓰는 케이스 */
+  //const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
+  //   console.log('draggin finished');
+
+  // 카드를 옮기다가 그대로 두는 경우 -> 별도 action 취하지 않게
+  // if (!destination) return;
+
+  /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
+  //setToDos((currentToDos) => {
+  // console.log('Delete item on', source.index);
+
+  // /** 기존 currentToDos 원본을 바꿀 수 없으니 복사 */
+  // const toDosCopy = [...currentToDos];
+  // /** 1.선택한 카드 배열에서 지우기 source.index */
+  // toDosCopy.splice(source.index, 1);
+  // console.log('복사 배열에서 옮긴 카드 지우기: ', toDosCopy);
+  // /** 2. 지운 카드를 새로운 목적지 Index에 다시 넣어주기 */
+  // toDosCopy.splice(destination?.index, 0, draggableId);
+  // return toDosCopy;
+  // });
   // };
 
   return (
