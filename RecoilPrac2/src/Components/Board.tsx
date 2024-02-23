@@ -17,7 +17,9 @@ const Title = styled.h2`
   margin-bottom: 10px;
   font-size: 18px;
 `;
-
+const Area = styled.div`
+  background-color: blue;
+`;
 /** Style End */
 
 /**Interface Start */
@@ -33,12 +35,12 @@ function Board({ toDos, boardId }: IBoardProps) {
       <Title>{boardId}</Title>
       <Droppable droppableId={boardId}>
         {(magic) => (
-          <div style={{ backgroundColor: 'red' }} ref={magic.innerRef} {...magic.droppableProps}>
+          <Area style={{ backgroundColor: 'red' }} ref={magic.innerRef} {...magic.droppableProps}>
             {toDos.map((toDo, index) => (
               <DraggableCard toDo={toDo} index={index} key={toDo} />
             ))}
             {magic.placeholder}
-          </div>
+          </Area>
         )}
       </Droppable>
     </Wrapper>
