@@ -2,6 +2,8 @@ import { useRef } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import DraggableCard from './DraggableCad';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { ITodo } from '../atoms';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -29,17 +31,28 @@ const Area = styled.div<IAreaProps>`
   transition: background-color 0.3s ease-in-out;
   padding: 20px;
 `;
+
+const Form = styled.form`
+  width: 100%;
+  input {
+    width: 100%;
+  }
+`;
 /** Style End */
 
 /**Interface Start */
 interface IBoardProps {
-  toDos: string[];
+  toDos: ITodo[];
   boardId: string;
 }
 
 interface IAreaProps {
   isDraggingFromThis: boolean;
   isDraggingOver: boolean;
+}
+
+interface IForm {
+  toDo: string;
 }
 /**Interface End */
 
@@ -57,14 +70,34 @@ function Board({ toDos, boardId }: IBoardProps) {
     }, 5000);
   };
 
+  /** useForm() */
+  const { register, handleSubmit, getValues, setValue } = useForm<IForm>();
+
+  const onValid = ({ toDo }: IForm) => {
+    console.log('제출한 data 확인: ', toDo);
+
+    // 제출 후 input 다시 비워주기
+    setValue('toDo', '');
+  };
+
   return (
     <Wrapper>
       <Title>{boardId}</Title>
 
       {/* 💡ref 개념 */}
-      <input ref={inputRef} placeholder="grab me" type="text" />
-      <button onClick={onClick}>Click me</button>
+      {/* <input ref={inputRef} placeholder="grab me" type="text" />
+      <button onClick={onClick}>Click me</button> */}
       {/* 💡ref 개념 */}
+
+      {/* useForm() */}
+      <Form onSubmit={handleSubmit(onValid)}>
+        <input
+          {...register('toDo', { required: true })}
+          type="text"
+          placeholder={`Add task on ${boardId}`}
+        />
+      </Form>
+      {/* useForm() */}
 
       <Droppable droppableId={boardId}>
         {(magic, info) => (
@@ -76,7 +109,7 @@ function Board({ toDos, boardId }: IBoardProps) {
             {...magic.droppableProps}
           >
             {toDos.map((toDo, index) => (
-              <DraggableCard toDo={toDo} index={index} key={toDo} />
+              <DraggableCard key={toDo.id} index={index} toDoId={toDo.id} toDoText={toDo.text} />
             ))}
             {magic.placeholder}
           </Area>

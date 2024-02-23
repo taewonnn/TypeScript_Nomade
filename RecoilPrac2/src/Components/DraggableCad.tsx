@@ -14,21 +14,22 @@ const Card = styled.div<{ isDragging: boolean }>`
 
 /** Interface Start */
 interface IDraggableCardProps {
-  toDo: string;
+  toDoId: number;
+  toDoText: string;
   index: number;
 }
 /** Interface End */
 
-function DraggableCard({ toDo, index }: IDraggableCardProps) {
+function DraggableCard({ toDoId, toDoText, index }: IDraggableCardProps) {
   /** 렌더링 횟수 확인 */
   // components의 state가 바뀌면 모두 렌더링!
   // 부모의 state가 바뀌면 부모의 자식들도 모두 다시 렌더링!
   // => react.memo  -> prop이 바뀌지 않는다면 굳이 렌더링 하지 말아줘!
 
-  console.log(toDo, 'has been rendered');
+  // console.log(toDo, 'has been rendered');
 
   return (
-    <Draggable key={toDo} draggableId={toDo} index={index}>
+    <Draggable draggableId={toDoId + ''} index={index}>
       {(magic, snapshot) => (
         <Card
           isDragging={snapshot.isDragging}
@@ -36,7 +37,7 @@ function DraggableCard({ toDo, index }: IDraggableCardProps) {
           {...magic.dragHandleProps}
           {...magic.draggableProps}
         >
-          {toDo}
+          {toDoText}
         </Card>
       )}
     </Draggable>
