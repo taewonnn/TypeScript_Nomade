@@ -44,9 +44,12 @@ function App() {
       setToDos((allBoards) => {
         // 일단 모든 보드를 가져온 후, 수정이 일어난 보드의 배열만 복사한다.
         const boardCopy = [...allBoards[source.droppableId]];
+
+        const taskObj = boardCopy[source.index];
+
         // 수정이 일어난 보드 복사해서 카드 옮겨주기
         boardCopy.splice(source.index, 1);
-        boardCopy.splice(destination?.index, 0, draggableId);
+        boardCopy.splice(destination?.index, 0, taskObj);
         return {
           // 모든 보드를 리턴 해주는데, 수정한 보드는 위에서 복사로 옮긴 배열로 넣어주기
           ...allBoards,
@@ -60,12 +63,13 @@ function App() {
       setToDos((allBoards) => {
         const sourceBoard = [...allBoards[source.droppableId]];
         const destinationBoard = [...allBoards[destination.droppableId]];
+        const taskObj = sourceBoard[source.index];
 
         // 기존 보드에서 선택한 카드를 지워주기
         sourceBoard.splice(source.index, 1);
 
         // 이동하고자 하는 보드에 선택한 카드 추가해주기
-        destinationBoard.splice(destination?.index, 0, draggableId);
+        destinationBoard.splice(destination?.index, 0, taskObj);
 
         return {
           ...allBoards,

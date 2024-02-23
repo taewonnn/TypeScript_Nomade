@@ -2,13 +2,14 @@ import { atom } from 'recoil';
 
 /** Interface Start */
 interface IToDoState {
-  [key: string]: string[];
+  [key: string]: ITodo[];
 }
 
 export interface ITodo {
   id: number;
   text: string;
 }
+
 /** Interface End */
 
 export const toDoState = atom<IToDoState>({
