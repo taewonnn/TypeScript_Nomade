@@ -22,6 +22,7 @@ const Title = styled.h2`
 `;
 const Area = styled.div`
   background-color: blue;
+  flex-grow: 1;
 `;
 /** Style End */
 
