@@ -39,6 +39,7 @@ function App() {
     /** source-> 특정 카드가 클릭된 것이 확인되면 destination 어디로 갈지 알 수 있으니, 특정 카드를 지웠다가 해당 값을 목적지로 이동시켜주기  */
     //setToDos((currentToDos) => {
     // console.log('Delete item on', source.index);
+
     // /** 기존 currentToDos 원본을 바꿀 수 없으니 복사 */
     // const toDosCopy = [...currentToDos];
     // /** 1.선택한 카드 배열에서 지우기 source.index */
@@ -106,7 +107,4 @@ export default App;
 
   💡Objext.values()  -> object의 values만 뽑아서 array로 만들어줌
   Object.values(toDos)   -> (2) [Array(2), Array(2)]  0: (2) ['a', 'b']  1: (2) ['n', 't']
-
-
-
  */
