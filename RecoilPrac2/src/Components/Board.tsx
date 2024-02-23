@@ -4,11 +4,12 @@ import styled from 'styled-components';
 
 /** Style Start */
 const Wrapper = styled.div`
+  width: 300px;
   padding: 20px 10px;
-  padding-top: 30px;
+  padding-top: 10px;
   background-color: ${(props) => props.theme.boardColor};
   border-radius: 5px;
-  min-height: 200px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
 `;
