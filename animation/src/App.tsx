@@ -38,6 +38,10 @@ const Circle = styled(motion.div)`
 // };
 
 /**animation - Ex2 */
+const boxVariants = {
+  start: {},
+  end: {},
+};
 
 function App() {
   return (
@@ -48,7 +52,7 @@ function App() {
       {/* animation - Ex2 */}
 
       {/* animation - Ex2 */}
-      <Box>
+      <Box variants={boxVariants} initial="start" animate="end">
         <Circle />
         <Circle />
         <Circle />
