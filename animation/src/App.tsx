@@ -28,16 +28,22 @@ const Circle = styled(motion.div)`
 /**Style End */
 
 /** animation - Ex1 - 축약 */
-const myVars = {
-  start: { scale: 0 },
-  end: { scale: 1, rotateZ: 360, transition: { type: 'spring', bounce: 0.5, delay: 0.5 } },
-};
+// const myVars = {
+//   start: { scale: 0 },
+//   end: { scale: 1, rotateZ: 360, transition: { type: 'spring', bounce: 0.5, delay: 0.5 } },
+// };
+
+/**animation - Ex2 */
 
 function App() {
   return (
     <Wrapper>
       {/* animation - Ex1 - 축약 */}
       {/* <Box variants={myVars} initial="start" animate="end"></Box> */}
+
+      {/* animation - Ex2 */}
+
+      {/* animation - Ex2 */}
 
       {/* animation - Ex1 */}
       {/* <Box
@@ -48,10 +54,12 @@ function App() {
         // 최종 스타일
         transition={{ type: 'spring', bounce: 0.5, delay: 0.5 }}
       ></Box> */}
+      {/* animation - Ex1 */}
 
       {/* motion 사용법 Ex. */}
       {/* <Box transition={{ duration: 3 }} animate={{ borderRadius: '100px' }} /> */}
       {/* <motion.div>1</motion.div> */}
+      {/* motion 사용법 Ex. */}
     </Wrapper>
   );
 }
