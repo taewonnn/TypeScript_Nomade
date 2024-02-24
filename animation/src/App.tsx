@@ -39,8 +39,21 @@ const Circle = styled(motion.div)`
 
 /**animation - Ex2 */
 const boxVariants = {
-  start: {},
-  end: {},
+  start: {
+    opacity: 0,
+    scale: 0.5,
+  },
+  end: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      duration: 3,
+      bounce: 0.5,
+      delayChildren: 0.5,
+      staggerChildren: 0.2,
+    },
+  },
 };
 
 function App() {
