@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-/** motion 적용 */
+/** styled componenet motion 적용 방벙 -> styled(motion.) */
 const Box = styled(motion.div)`
   width: 200px;
   height: 200px;
