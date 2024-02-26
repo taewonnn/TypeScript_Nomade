@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { RecoilRoot } from 'recoil';
 import { theme } from './theme';
+import router from './Routes/router';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -78,7 +79,7 @@ root.render(
   <React.StrictMode>
     <RecoilRoot>
       <ThemeProvider theme={theme}>
-        <App />
+        <RouterProvider router={router} />
         <GlobalStyle />
       </ThemeProvider>
     </RecoilRoot>
