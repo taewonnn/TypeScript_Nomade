@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { RecoilRoot } from 'recoil';
 import { theme } from './theme';
-import router from './Routes/router';
+import router from './router';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
