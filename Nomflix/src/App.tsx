@@ -1,10 +1,14 @@
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-      <h1>nomflix</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/"></Route>
+        <Route path="/tv"></Route>
+        <Route path="/search"></Route>
+      </Routes>
+    </Router>
   );
 }
 
