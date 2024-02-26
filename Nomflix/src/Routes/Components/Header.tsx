@@ -104,10 +104,10 @@ function Header() {
   console.log('home있는지 확인 : ', homeMatch); // 있으면 obj  없으면 null
   /** useMatch */
 
-  /** 검색 창 모션을 위한 상태 및 변경 함수  */
+  /** 검색 창 모션을 위한 상태 및 변경 함수 */
   const [searchOpen, setSearchOpen] = useState(false);
   const toggleSearch = () => setSearchOpen((prev) => !prev);
-  /** 검색 창 모션을 위한 상태 */
+  /** 검색 창 모션을 위한 상태  및 변경 함수 */
 
   return (
     <Nav>
