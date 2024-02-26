@@ -56,6 +56,11 @@ const boxVariants = {
   },
 };
 
+const CircleVariants = {
+  start: { scale: 0 },
+  end: { scale: 2, transition: { type: 'spring', bounce: 0.8 } },
+};
+
 function App() {
   return (
     <Wrapper>
@@ -63,14 +68,13 @@ function App() {
       {/* <Box variants={myVars} initial="start" animate="end"></Box> */}
 
       {/* animation - Ex2 */}
-
-      {/* animation - Ex2 */}
       <Box variants={boxVariants} initial="start" animate="end">
-        <Circle />
-        <Circle />
-        <Circle />
-        <Circle />
+        <Circle variants={CircleVariants} />
+        <Circle variants={CircleVariants} />
+        <Circle variants={CircleVariants} />
+        <Circle variants={CircleVariants} />
       </Box>
+      {/* animation - Ex2 */}
 
       {/* animation - Ex1 */}
       {/* <Box
