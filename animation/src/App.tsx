@@ -48,7 +48,7 @@ const boxVariants = {
     opacity: 1,
     transition: {
       type: 'spring',
-      duration: 3,
+      duration: 0.5,
       bounce: 0.5,
       delayChildren: 0.5,
       staggerChildren: 0.2,
@@ -56,9 +56,15 @@ const boxVariants = {
   },
 };
 
-const CircleVariants = {
-  start: { scale: 0 },
-  end: { scale: 2, transition: { type: 'spring', bounce: 0.8 } },
+const circleVariants = {
+  start: {
+    opacity: 0,
+    y: 10,
+  },
+  end: {
+    opacity: 1,
+    y: 0,
+  },
 };
 
 function App() {
@@ -69,10 +75,10 @@ function App() {
 
       {/* animation - Ex2 */}
       <Box variants={boxVariants} initial="start" animate="end">
-        <Circle variants={CircleVariants} />
-        <Circle variants={CircleVariants} />
-        <Circle variants={CircleVariants} />
-        <Circle variants={CircleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
       </Box>
       {/* animation - Ex2 */}
 
