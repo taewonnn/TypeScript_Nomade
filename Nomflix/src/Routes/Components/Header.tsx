@@ -54,12 +54,28 @@ const Search = styled.span`
 /** Style End */
 
 /** Motion Start */
+const LogoVarinats = {
+  normal: {
+    fillOpacity: 1,
+  },
+  active: {
+    fillOpacity: [0, 1, 0],
+    scale: [1, 1.5, 1.2, 0, 1],
+    transition: {
+      repeat: Infinity,
+    },
+  },
+};
+/** Motion End */
+
 function Header() {
   return (
     <Nav>
       <Col>
         <Logo
+          variants={LogoVarinats}
           whileHover="active"
+          initial="normal"
           xmlns="http://www.w3.org/2000/svg"
           width="1024"
           height="276.742"
