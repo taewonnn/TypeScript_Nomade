@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useState } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 
@@ -106,7 +106,24 @@ function Header() {
 
   /** 검색 창 모션을 위한 상태 및 변경 함수 */
   const [searchOpen, setSearchOpen] = useState(false);
-  const toggleSearch = () => setSearchOpen((prev) => !prev);
+
+  /** animation */
+  const inputAnimation = useAnimation();
+
+  const toggleSearch = () => {
+    if (searchOpen) {
+      // 검색 창이 열려있다면 닫는 애니메이션 실행
+      inputAnimation.start({
+        scaleX: 0,
+      });
+    } else {
+      // 열리는애니메이션 실행
+      inputAnimation.start({
+        scaleX: 1,
+      });
+    }
+    setSearchOpen((prev) => !prev);
+  };
   /** 검색 창 모션을 위한 상태  및 변경 함수 */
 
   return (
@@ -149,7 +166,10 @@ function Header() {
             ></path>
           </motion.svg>
           <Input
-            animate={{ scaleX: searchOpen ? 1 : 0 }}
+            animate={inputAnimation}
+            // animate={{ scaleX: searchOpen ? 1 : 0 }}
+            initial={{ scaleX: 0 }}
+            transition={{ type: 'linear' }}
             placeholder="Search for movie or tv show..."
           />
         </Search>
