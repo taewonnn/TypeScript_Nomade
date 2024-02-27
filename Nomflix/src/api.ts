@@ -1,5 +1,3 @@
-const BASE_URL = 'https://api.themoviedb.org/3';
-
 /** Interface Start */
 interface IMovie {
   id: number;
@@ -22,7 +20,7 @@ export interface IGetMovieResult {
 /** Interface End */
 
 export function getMovies() {
-  return fetch(`${BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_MOVIE_API_KEY}`).then(
-    (response) => response.json()
-  );
+  return fetch(
+    `${process.env.REACT_APP_BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_MOVIE_API_KEY}`
+  ).then((response) => response.json());
 }
