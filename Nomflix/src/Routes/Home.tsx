@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { IGetMovieResult, getMovies } from '../api';
 import styled from 'styled-components';
+import { makeImagePath } from '../utils';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -14,12 +15,15 @@ const Loader = styled.div`
   align-items: center;
 `;
 
-const Banner = styled.div`
+const Banner = styled.div<{ bgPhoto: string }>`
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 60px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(${(props) => props.bgPhoto});
+  background-size: cover;
 `;
 
 const Title = styled.h2`
@@ -49,7 +53,7 @@ function Home() {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner>
+          <Banner bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}>
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
