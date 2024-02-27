@@ -5,6 +5,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { RecoilRoot } from 'recoil';
 import { theme } from './theme';
 import router from './router';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
@@ -74,14 +75,19 @@ a {
 }
 `;
 
+// react-query
+const client = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-        <GlobalStyle />
-      </ThemeProvider>
+      <QueryClientProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={router} />
+          <GlobalStyle />
+        </ThemeProvider>
+      </QueryClientProvider>
     </RecoilRoot>
   </React.StrictMode>
 );
