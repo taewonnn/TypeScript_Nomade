@@ -5,7 +5,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { RecoilRoot } from 'recoil';
 import { theme } from './theme';
 import router from './router';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Reset CSS
 const GlobalStyle = createGlobalStyle`
