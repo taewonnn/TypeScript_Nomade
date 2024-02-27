@@ -1,8 +1,6 @@
 const BASE_URL = 'https://api.themoviedb.org/3';
-const API_KEY = '201c5a5f0b33feabe2f1ec8ddcb07e2d';
 
 /** Interface Start */
-
 interface IMovie {
   id: number;
   backdrop_path: string;
@@ -24,7 +22,7 @@ export interface IGetMovieResult {
 /** Interface End */
 
 export function getMovies() {
-  return fetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}`).then((response) =>
+  return fetch(`${BASE_URL}/movie/now_playing?api_key=${process.env.API_KEY}`).then((response) =>
     response.json()
   );
 }
