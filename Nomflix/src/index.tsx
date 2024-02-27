@@ -64,6 +64,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   color:black;
   line-height: 1.2;
+  /** 스크롤 확인용 임시 height */
   height: 2000px;
   
 }
