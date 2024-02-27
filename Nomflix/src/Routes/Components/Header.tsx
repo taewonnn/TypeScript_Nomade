@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll, useAnimation } from 'framer-motion';
 import { useState } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 
 /** Style Start */
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,11 +111,16 @@ function Header() {
   console.log('home있는지 확인 : ', homeMatch); // 있으면 obj  없으면 null
   /** useMatch */
 
+  /** useScroll - 스크롤을 움직일 때, 밑에서부터 얼마나 멀리 있는지 알려줌 */
+  const { scrollY } = useScroll();
+  /** useScroll */
+
   /** 검색 창 모션을 위한 상태 및 변경 함수 */
   const [searchOpen, setSearchOpen] = useState(false);
-
-  /** animation */
+  /** useAnimation - 시작 및 중지 메서드가 있는 AnimationControls을 만들 수 있음 */
   const inputAnimation = useAnimation();
+  const navAnimation = useAnimation();
+  /** useAnimation  */
 
   const toggleSearch = () => {
     if (searchOpen) {
@@ -133,8 +138,28 @@ function Header() {
   };
   /** 검색 창 모션을 위한 상태  및 변경 함수 */
 
+  /** 스크롤 이동 시 header 배경색 변경 */
+  const navVariants = {
+    top: {
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+    scroll: {
+      backgroundColor: 'rgba(0, 0, 0, 1)',
+    },
+  };
+
+  useMotionValueEvent(scrollY, 'change', () => {
+    console.log('y축 이동 거리 : ', scrollY.get());
+    if (scrollY.get() > 80) {
+      navAnimation.start('scroll');
+    } else {
+      navAnimation.start('top');
+    }
+  });
+  /** 스크롤 이동 시 header 배경색 변경 */
+
   return (
-    <Nav>
+    <Nav animate={navAnimation} variants={navVariants} initial={'top'}>
       <Col>
         <Logo
           variants={LogoVarinats}
