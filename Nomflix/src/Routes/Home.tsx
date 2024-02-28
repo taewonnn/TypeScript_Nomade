@@ -86,10 +86,15 @@ function Home() {
 
   /** 슬라이드 - index */
   const [index, setIndex] = useState(0);
+  const [leaving, setLeaving] = useState(false);
   // index 증가 함수
   const increaseIndex = () => {
+    if (leaving) return;
+    setLeaving(true);
     setIndex((prev) => prev + 1);
   };
+
+  const toggleLeaving = () => setLeaving((prev) => !prev);
   /** 슬라이드 - index */
 
   return (
@@ -106,7 +111,7 @@ function Home() {
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <AnimatePresence>
+            <AnimatePresence onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
                 initial="hidden"
