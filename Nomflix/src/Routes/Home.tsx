@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { IGetMovieResult, getMovies } from '../api';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -54,8 +55,21 @@ const Box = styled(motion.div)`
   background-color: white;
   height: 200px;
 `;
-
 /** Style End */
+
+/** Slider motion */
+const rowVariants = {
+  hidden: {
+    x: window.outerWidth + 10,
+  },
+  visible: {
+    x: 0,
+  },
+  exit: {
+    x: -window.outerWidth - 10,
+  },
+};
+/** Slider motion */
 
 function Home() {
   /** 상영중인 영화 가져오기 */
@@ -67,25 +81,44 @@ function Home() {
   console.log(data, isLoading);
   /** 상영중인 영화 가져오기 */
 
+  /** 슬라이드 - index */
+  const [index, setIndex] = useState(0);
+  // index 증가 함수
+  const increaseIndex = () => {
+    setIndex((prev) => prev + 1);
+  };
+  /** 슬라이드 - index */
+
   return (
     <Wrapper>
       {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}>
+          <Banner
+            onClick={increaseIndex}
+            bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}
+          >
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <Row>
-              <Box />
-              <Box />
-              <Box />
-              <Box />
-              <Box />
-              <Box />
-            </Row>
+            <AnimatePresence>
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                key={index}
+              >
+                <Box />
+                <Box />
+                <Box />
+                <Box />
+                <Box />
+                <Box />
+              </Row>
+            </AnimatePresence>
           </Slider>
         </>
       )}
