@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { makeImagePath } from '../utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import useWindowDimensions from './Components/useWindowDimensions';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -63,17 +64,17 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 /** Style End */
 
 /** Slider motion */
-const rowVariants = {
-  hidden: {
-    x: window.outerWidth + 10,
-  },
-  visible: {
-    x: 0,
-  },
-  exit: {
-    x: -window.outerWidth - 10,
-  },
-};
+// const rowVariants = {
+//   hidden: {
+//     x: window.outerWidth + 10,
+//   },
+//   visible: {
+//     x: 0,
+//   },
+//   exit: {
+//     x: -window.outerWidth - 10,
+//   },
+// };
 /** Slider motion */
 
 /** Box 6개씩 보여주기 */
@@ -81,6 +82,8 @@ const offest = 6;
 /** Box 6개씩 보여주기 */
 
 function Home() {
+  const width = useWindowDimensions();
+
   /** 상영중인 영화 가져오기 */
   console.log('render!!');
   const { data, isLoading } = useQuery<IGetMovieResult>({
@@ -124,11 +127,10 @@ function Home() {
           <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
-                variants={rowVariants}
-                initial="hidden"
-                animate="visible"
+                initial={{ x: width + 10 }}
+                animate={{ x: 0 }}
+                exit={{ x: -width - 10 }}
                 transition={{ type: 'tween', duration: 1 }}
-                exit="exit"
                 key={index}
               >
                 {/* data?.results.slice(1) -> 상단에 1개는 이미 사용해서 해당 영화는 제외하고 나머지만 받아오기 위해  */}
