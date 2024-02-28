@@ -52,10 +52,12 @@ const Row = styled(motion.div)`
   width: 100%;
 `;
 
-const Box = styled(motion.div)`
+const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+  background-position: center center;
   height: 200px;
-  color: red;
   font-size: 66px;
 `;
 /** Style End */
@@ -98,7 +100,7 @@ function Home() {
       setLeaving(true);
       // 1개는 상단에 사용 중이라 -1
       const totalMovies = data.results.length - 1;
-      const maxIndex = Math.ceil(totalMovies / offest) - 1;
+      const maxIndex = Math.floor(totalMovies / offest) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
@@ -134,7 +136,10 @@ function Home() {
                   .slice(1)
                   .slice(offest * index, offest * index + offest)
                   .map((movie) => (
-                    <Box key={movie.id}>{movie.title}</Box>
+                    <Box
+                      key={movie.id}
+                      bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
+                    ></Box>
                   ))}
               </Row>
             </AnimatePresence>
