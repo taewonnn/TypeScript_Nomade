@@ -46,7 +46,7 @@ const Slider = styled.div`
 
 const Row = styled(motion.div)`
   display: grid;
-  gap: 10px;
+  gap: 5px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
   width: 100%;
@@ -74,6 +74,10 @@ const rowVariants = {
 };
 /** Slider motion */
 
+/** Box 6개씩 보여주기 */
+const offest = 6;
+/** Box 6개씩 보여주기 */
+
 function Home() {
   /** 상영중인 영화 가져오기 */
   console.log('render!!');
@@ -89,9 +93,14 @@ function Home() {
   const [leaving, setLeaving] = useState(false);
   // index 증가 함수
   const increaseIndex = () => {
-    if (leaving) return;
-    setLeaving(true);
-    setIndex((prev) => prev + 1);
+    if (data) {
+      if (leaving) return;
+      setLeaving(true);
+      // 1개는 상단에 사용 중이라 -1
+      const totalMovies = data.results.length - 1;
+      const maxIndex = Math.ceil(totalMovies / offest) - 1;
+      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
   };
 
   const toggleLeaving = () => setLeaving((prev) => !prev);
@@ -111,7 +120,7 @@ function Home() {
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <AnimatePresence onExitComplete={toggleLeaving}>
+            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
                 initial="hidden"
@@ -120,9 +129,13 @@ function Home() {
                 exit="exit"
                 key={index}
               >
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <Box key={i}>{i}</Box>
-                ))}
+                {/* data?.results.slice(1) -> 상단에 1개는 이미 사용해서 해당 영화는 제외하고 나머지만 받아오기 위해  */}
+                {data?.results
+                  .slice(1)
+                  .slice(offest * index, offest * index + offest)
+                  .map((movie) => (
+                    <Box key={movie.id}>{movie.title}</Box>
+                  ))}
               </Row>
             </AnimatePresence>
           </Slider>
@@ -133,3 +146,12 @@ function Home() {
 }
 
 export default Home;
+
+/** Ex. */
+// const offset = 6;
+// let page = 0;
+
+// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].slice(offset * page,offset * page + offset);   //  [1, 2, 3, 4, 5, 6]
+
+// let page1 = 1;
+// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].slice( offset * page1,offset * page1 + offset);   //  [7, 8, 9, 10, 11, 12]
