@@ -76,7 +76,7 @@ function Home() {
     queryKey: ['movies', 'nowPlaying'],
     queryFn: getMovies,
   });
-  console.log(data, isLoading);
+  console.log('상영중인 영화 data 확인 :', data);
   /** 상영중인 영화 가져오기 */
 
   /** 슬라이드 - index */
