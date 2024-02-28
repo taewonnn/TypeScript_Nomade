@@ -63,20 +63,6 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 `;
 /** Style End */
 
-/** Slider motion */
-// const rowVariants = {
-//   hidden: {
-//     x: window.outerWidth + 10,
-//   },
-//   visible: {
-//     x: 0,
-//   },
-//   exit: {
-//     x: -window.outerWidth - 10,
-//   },
-// };
-/** Slider motion */
-
 /** Box 6개씩 보여주기 */
 const offest = 6;
 /** Box 6개씩 보여주기 */
