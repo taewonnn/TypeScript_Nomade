@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { IGetMovieResult, getMovies } from '../api';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
+import { motion } from 'framer-motion';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -36,6 +37,24 @@ const Overview = styled.p`
   font-size: 30px;
   width: 50%;
 `;
+
+const Slider = styled.div`
+  position: relative;
+`;
+
+const Row = styled(motion.div)`
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  position: absolute;
+  width: 100%;
+`;
+
+const Box = styled(motion.div)`
+  background-color: white;
+  height: 200px;
+`;
+
 /** Style End */
 
 function Home() {
@@ -58,6 +77,16 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
+          <Slider>
+            <Row>
+              <Box />
+              <Box />
+              <Box />
+              <Box />
+              <Box />
+              <Box />
+            </Row>
+          </Slider>
         </>
       )}
     </Wrapper>
