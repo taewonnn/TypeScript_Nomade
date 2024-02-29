@@ -85,6 +85,7 @@ const BoxVariants = {
     scale: 1.3,
     y: -50,
     transition: {
+      duration: 0.2,
       delay: 0.5,
     },
   },
