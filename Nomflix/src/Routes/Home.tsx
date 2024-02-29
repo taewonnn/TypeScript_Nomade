@@ -5,6 +5,7 @@ import { makeImagePath } from '../utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import useWindowDimensions from './Components/useWindowDimensions';
+import { useMatch, useNavigate } from 'react-router-dom';
 
 /** Style Start */
 const Wrapper = styled.div`
@@ -60,6 +61,7 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-position: center center;
   height: 200px;
   font-size: 66px;
+  cursor: pointer;
 
   // 양쪽 사이드 박스 호버 시 크기 안벗어나게
   &:first-child {
@@ -119,7 +121,17 @@ const infoVariants = {
 /** animation - Variants */
 
 function Home() {
+  /** useNavigate - url 이동 */
+  const navigate = useNavigate();
+  /** url 이동  */
+
+  /** useMatch('확인하고자 하는 param') */
+  const movieIdMatch = useMatch('/movies/:movieId');
+  /** useMatch('확인하고자 하는 param') */
+
+  /** 애니메이션 축 좌표 */
   const width = useWindowDimensions();
+  /** 애니메이션 축 좌표 */
 
   /** 상영중인 영화 가져오기 */
   console.log('render!!');
@@ -150,7 +162,7 @@ function Home() {
 
   /** 박스 클릭 시 함수 */
   const onBoxClicked = (movieId: number) => {
-    console.log('선택한 영화 id', movieId);
+    navigate(`/movies/${movieId}`);
   };
   /** 박스 클릭 시 함수 */
 
@@ -195,6 +207,23 @@ function Home() {
               </Row>
             </AnimatePresence>
           </Slider>
+          {/* movie 선택 시 상세 화면 -> movies/:movieId 일 때 보여지는 모달 */}
+          <AnimatePresence>
+            {movieIdMatch ? (
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  width: '40vw',
+                  height: '80vh',
+                  backgroundColor: 'red',
+                  top: 50,
+                  left: 0,
+                  right: 0,
+                  margin: '0 auto',
+                }}
+              />
+            ) : null}
+          </AnimatePresence>
         </>
       )}
     </Wrapper>
