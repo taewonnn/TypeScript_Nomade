@@ -169,7 +169,6 @@ function Home() {
                       initial="normal"
                       whileHover="hover"
                       variants={BoxVariants}
-                      // transition={{ delay: 0.3 }}
                       bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
                     >
                       <Info variants={infoVariants} />
