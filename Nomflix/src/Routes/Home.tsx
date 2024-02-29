@@ -90,7 +90,6 @@ const offest = 6;
 /** Box 6개씩 보여주기 */
 
 /** animation - Variants */
-
 //박스 선택 시 딜레이
 const BoxVariants = {
   normal: {
@@ -149,6 +148,12 @@ function Home() {
   const toggleLeaving = () => setLeaving((prev) => !prev);
   /** 슬라이드 - index */
 
+  /** 박스 클릭 시 함수 */
+  const onBoxClicked = (movieId: number) => {
+    console.log('선택한 영화 id', movieId);
+  };
+  /** 박스 클릭 시 함수 */
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -177,6 +182,7 @@ function Home() {
                   .slice(offest * index, offest * index + offest)
                   .map((movie) => (
                     <Box
+                      onClick={() => onBoxClicked(movie.id)}
                       key={movie.id}
                       initial="normal"
                       whileHover="hover"
