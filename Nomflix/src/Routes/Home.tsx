@@ -127,6 +127,7 @@ function Home() {
 
   /** useMatch('확인하고자 하는 param') */
   const movieIdMatch = useMatch('/movies/:movieId');
+  console.log('!!! movieId 확인', movieIdMatch?.params); // {movieId: '931642'}
   /** useMatch('확인하고자 하는 param') */
 
   /** 애니메이션 축 좌표 */
@@ -194,7 +195,7 @@ function Home() {
                   .slice(offest * index, offest * index + offest)
                   .map((movie) => (
                     <Box
-                      layoutId="hello"
+                      layoutId={movie.id + ''}
                       onClick={() => onBoxClicked(movie.id)}
                       key={movie.id}
                       initial="normal"
@@ -212,7 +213,7 @@ function Home() {
           <AnimatePresence>
             {movieIdMatch ? (
               <motion.div
-                layoutId="hello"
+                layoutId={movieIdMatch.params.movieId}
                 style={{
                   position: 'absolute',
                   width: '40vw',
