@@ -70,6 +70,11 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
     transform-origin: center rigth;
   }
 `;
+
+const Info = styled(motion.div)`
+  padding: 20px;
+  background-color: ${(props) => props.theme.black.lighter};
+`;
 /** Style End */
 
 /** Box 6개씩 보여주기 */
@@ -156,7 +161,9 @@ function Home() {
                       variants={BoxVariants}
                       // transition={{ delay: 0.3 }}
                       bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
-                    ></Box>
+                    >
+                      <Info />
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>
