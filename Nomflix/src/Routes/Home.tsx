@@ -74,6 +74,7 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 const Info = styled(motion.div)`
   padding: 20px;
   background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
 `;
 /** Style End */
 
@@ -81,7 +82,9 @@ const Info = styled(motion.div)`
 const offest = 6;
 /** Box 6개씩 보여주기 */
 
-/** Box hover delay */
+/** animation - Variants */
+
+//박스 선택 시 딜레이
 const BoxVariants = {
   normal: {
     scale: 1,
@@ -95,7 +98,14 @@ const BoxVariants = {
     },
   },
 };
-/** Box hover delay */
+
+// 박스 정보
+const infoVariants = {
+  hover: {
+    opacity: 1,
+  },
+};
+/** animation - Variants */
 
 function Home() {
   const width = useWindowDimensions();
@@ -162,7 +172,7 @@ function Home() {
                       // transition={{ delay: 0.3 }}
                       bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
                     >
-                      <Info />
+                      <Info variants={infoVariants} />
                     </Box>
                   ))}
               </Row>
