@@ -72,9 +72,16 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 `;
 
 const Info = styled(motion.div)`
-  padding: 20px;
+  padding: 10px;
   background-color: ${(props) => props.theme.black.lighter};
   opacity: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  h4 {
+    text-align: center;
+    font-size: 18px;
+  }
 `;
 /** Style End */
 
@@ -90,8 +97,9 @@ const BoxVariants = {
     scale: 1,
   },
   hover: {
+    zIndex: 99,
     scale: 1.3,
-    y: -50,
+    y: -80,
     transition: {
       duration: 0.2,
       delay: 0.5,
@@ -103,6 +111,10 @@ const BoxVariants = {
 const infoVariants = {
   hover: {
     opacity: 1,
+    transition: {
+      duration: 0.2,
+      delay: 0.5,
+    },
   },
 };
 /** animation - Variants */
@@ -171,7 +183,7 @@ function Home() {
                       variants={BoxVariants}
                       bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
                     >
-                      <Info variants={infoVariants} />
+                      <Info variants={infoVariants}>{<h4>{movie.title}</h4>}</Info>
                     </Box>
                   ))}
               </Row>
