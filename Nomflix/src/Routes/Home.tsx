@@ -60,12 +60,36 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-position: center center;
   height: 200px;
   font-size: 66px;
+
+  // 양쪽 사이드 박스 호버 시 크기 안벗어나게
+  &:first-child {
+    transform-origin: center left;
+  }
+
+  &:last-child {
+    transform-origin: center rigth;
+  }
 `;
 /** Style End */
 
 /** Box 6개씩 보여주기 */
 const offest = 6;
 /** Box 6개씩 보여주기 */
+
+/** Box hover delay */
+const BoxVariants = {
+  normal: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.3,
+    y: -50,
+    transition: {
+      delay: 0.5,
+    },
+  },
+};
+/** Box hover delay */
 
 function Home() {
   const width = useWindowDimensions();
@@ -126,7 +150,10 @@ function Home() {
                   .map((movie) => (
                     <Box
                       key={movie.id}
-                      whileHover={{ scale: 1.3 }}
+                      initial="normal"
+                      whileHover="hover"
+                      variants={BoxVariants}
+                      // transition={{ delay: 0.3 }}
                       bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
                     ></Box>
                   ))}
