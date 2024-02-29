@@ -194,6 +194,7 @@ function Home() {
                   .slice(offest * index, offest * index + offest)
                   .map((movie) => (
                     <Box
+                      layoutId="hello"
                       onClick={() => onBoxClicked(movie.id)}
                       key={movie.id}
                       initial="normal"
@@ -211,6 +212,7 @@ function Home() {
           <AnimatePresence>
             {movieIdMatch ? (
               <motion.div
+                layoutId="hello"
                 style={{
                   position: 'absolute',
                   width: '40vw',
