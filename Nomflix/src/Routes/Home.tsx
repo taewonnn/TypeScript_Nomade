@@ -126,6 +126,7 @@ function Home() {
                   .map((movie) => (
                     <Box
                       key={movie.id}
+                      whileHover={{ scale: 1.3 }}
                       bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
                     ></Box>
                   ))}
