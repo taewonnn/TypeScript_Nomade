@@ -175,6 +175,12 @@ function Home() {
   };
   /** 박스 클릭 시 함수 */
 
+  /** 박스 클릭 후 뒷 배경 클릭 시 함수 */
+  const onOverlayClicked = () => {
+    navigate(-1);
+  };
+  /** 박스 클릭 후 뒷 배경 클릭 시 함수 */
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -221,7 +227,7 @@ function Home() {
           <AnimatePresence>
             {movieIdMatch ? (
               <>
-                <Overlay></Overlay>
+                <Overlay onClick={onOverlayClicked} />
                 <motion.div
                   layoutId={movieIdMatch.params.movieId}
                   style={{
