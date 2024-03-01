@@ -202,6 +202,13 @@ function Home() {
   };
   /** 박스 클릭 후 뒷 배경 클릭 시 함수 */
 
+  /** */
+  const clickedMovie =
+    movieIdMatch?.params.movieId &&
+    data?.results.find((movie) => movie.id + '' === movieIdMatch.params.movieId);
+  console.log('click 영화 정보 ', clickedMovie);
+  /** */
+
   return (
     <Wrapper>
       {isLoading ? (
