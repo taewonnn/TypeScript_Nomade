@@ -236,7 +236,7 @@ function Home() {
                 <motion.div
                   layoutId={movieIdMatch.params.movieId}
                   style={{
-                    position: 'absolute',
+                    position: 'fixed',
                     width: '40vw',
                     height: '80vh',
                     backgroundColor: 'red',
