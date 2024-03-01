@@ -87,11 +87,12 @@ const Info = styled(motion.div)`
 `;
 
 const Overlay = styled(motion.div)`
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
 `;
 /** Style End */
 
@@ -227,7 +228,11 @@ function Home() {
           <AnimatePresence>
             {movieIdMatch ? (
               <>
-                <Overlay onClick={onOverlayClicked} />
+                <Overlay
+                  onClick={onOverlayClicked}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
                 <motion.div
                   layoutId={movieIdMatch.params.movieId}
                   style={{
