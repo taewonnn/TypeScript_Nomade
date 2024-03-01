@@ -88,7 +88,7 @@ const Info = styled(motion.div)`
 /** Style End */
 
 /** Box 6개씩 보여주기 */
-const offest = 6;
+const offset = 6;
 /** Box 6개씩 보여주기 */
 
 /** animation - Variants */
@@ -153,7 +153,7 @@ function Home() {
       setLeaving(true);
       // 1개는 상단에 사용 중이라 -1
       const totalMovies = data.results.length - 1;
-      const maxIndex = Math.floor(totalMovies / offest) - 1;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
@@ -192,7 +192,7 @@ function Home() {
                 {/* data?.results.slice(1) -> 상단에 1개는 이미 사용해서 해당 영화는 제외하고 나머지만 받아오기 위해  */}
                 {data?.results
                   .slice(1)
-                  .slice(offest * index, offest * index + offest)
+                  .slice(offset * index, offset * index + offset)
                   .map((movie) => (
                     <Box
                       layoutId={movie.id + ''}
