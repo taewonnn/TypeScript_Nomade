@@ -73,6 +73,18 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   }
 `;
 
+const BigMovie = styled(motion.div)`
+  position: fixed;
+  width: 60vw;
+  height: 70vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: red;
+`;
+
 const Info = styled(motion.div)`
   padding: 10px;
   background-color: ${(props) => props.theme.black.lighter};
@@ -94,6 +106,7 @@ const Overlay = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
 `;
+
 /** Style End */
 
 /** Box 6개씩 보여주기 */
@@ -126,6 +139,13 @@ const infoVariants = {
       delay: 0.5,
     },
   },
+};
+
+// overlay(뒤 배경)
+const overlayVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 0.7 },
+  exit: { opacity: 0 },
 };
 /** animation - Variants */
 
@@ -228,24 +248,8 @@ function Home() {
           <AnimatePresence>
             {movieIdMatch ? (
               <>
-                <Overlay
-                  onClick={onOverlayClicked}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                />
-                <motion.div
-                  layoutId={movieIdMatch.params.movieId}
-                  style={{
-                    position: 'fixed',
-                    width: '40vw',
-                    height: '80vh',
-                    backgroundColor: 'red',
-                    top: 50,
-                    left: 0,
-                    right: 0,
-                    margin: '0 auto',
-                  }}
-                />
+                <Overlay onClick={onOverlayClicked} variants={overlayVariants} />
+                <BigMovie layoutId={movieIdMatch.params.movieId} />
               </>
             ) : null}
           </AnimatePresence>
