@@ -85,6 +85,14 @@ const Info = styled(motion.div)`
     font-size: 18px;
   }
 `;
+
+const Overlay = styled(motion.div)`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
 /** Style End */
 
 /** Box 6개씩 보여주기 */
@@ -212,19 +220,22 @@ function Home() {
           {/* movie 선택 시 상세 화면 -> movies/:movieId 일 때 보여지는 모달 */}
           <AnimatePresence>
             {movieIdMatch ? (
-              <motion.div
-                layoutId={movieIdMatch.params.movieId}
-                style={{
-                  position: 'absolute',
-                  width: '40vw',
-                  height: '80vh',
-                  backgroundColor: 'red',
-                  top: 50,
-                  left: 0,
-                  right: 0,
-                  margin: '0 auto',
-                }}
-              />
+              <>
+                <Overlay></Overlay>
+                <motion.div
+                  layoutId={movieIdMatch.params.movieId}
+                  style={{
+                    position: 'absolute',
+                    width: '40vw',
+                    height: '80vh',
+                    backgroundColor: 'red',
+                    top: 50,
+                    left: 0,
+                    right: 0,
+                    margin: '0 auto',
+                  }}
+                />
+              </>
             ) : null}
           </AnimatePresence>
         </>
