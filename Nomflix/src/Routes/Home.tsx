@@ -190,24 +190,24 @@ function Home() {
   const toggleLeaving = () => setLeaving((prev) => !prev);
   /** 슬라이드 - index */
 
-  /** 박스 클릭 시 함수 */
+  /** box 클릭 시 함수 */
   const onBoxClicked = (movieId: number) => {
     navigate(`/movies/${movieId}`);
   };
-  /** 박스 클릭 시 함수 */
+  /** box 클릭 시 함수 */
 
-  /** 박스 클릭 후 뒷 배경 클릭 시 함수 */
+  /** box 클릭 후 뒷 배경 클릭 시 함수 */
   const onOverlayClicked = () => {
     navigate(-1);
   };
-  /** 박스 클릭 후 뒷 배경 클릭 시 함수 */
+  /** box 클릭 후 뒷 배경 클릭 시 함수 */
 
-  /** */
+  /** 클릭한 box의 영화 정보 */
   const clickedMovie =
     movieIdMatch?.params.movieId &&
     data?.results.find((movie) => movie.id + '' === movieIdMatch.params.movieId);
   console.log('click 영화 정보 ', clickedMovie);
-  /** */
+  /** 클릭한 box의 영화 정보 */
 
   return (
     <Wrapper>
