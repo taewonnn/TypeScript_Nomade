@@ -125,6 +125,11 @@ const BigTitle = styled.h3`
   padding: 10px;
 `;
 
+const BigOverView = styled.p`
+  padding: 20px;
+  top: -80px;
+  color: ${(props) => props.theme.white.lighter};
+`;
 /** Style End */
 
 /** Box 6개씩 보여주기 */
@@ -286,6 +291,7 @@ function Home() {
                         }}
                       />
                       <BigTitle>{clickedMovie.title}</BigTitle>
+                      <BigOverView>{clickedMovie.overview}</BigOverView>
                     </>
                   )}
                 </BigMovie>
