@@ -82,6 +82,9 @@ const BigMovie = styled(motion.div)`
   left: 0;
   right: 0;
   margin: auto;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: ${(props) => props.theme.black.lighter};
 `;
 
 const Info = styled(motion.div)`
@@ -102,8 +105,21 @@ const Overlay = styled(motion.div)`
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.black.lighter}
   opacity: 0;
+`;
+
+const BigCover = styled.div`
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center center;
+`;
+
+const BigTitle = styled.h3`
+  color: ${(props) => props.theme.white.lighter};
+  text-align: center;
+  font-size: 40px;
 `;
 
 /** Style End */
@@ -258,8 +274,15 @@ function Home() {
                 <BigMovie layoutId={movieIdMatch.params.movieId}>
                   {clickedMovie && (
                     <>
-                      <img src={makeImagePath(clickedMovie.backdrop_path, 'w500')} />
-                      <h2>{clickedMovie.title}</h2>
+                      <BigCover
+                        style={{
+                          backgroundImage: `url(${makeImagePath(
+                            clickedMovie.backdrop_path,
+                            'w500'
+                          )})`,
+                        }}
+                      />
+                      <BigTitle>{clickedMovie.title}</BigTitle>
                     </>
                   )}
                 </BigMovie>
