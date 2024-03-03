@@ -276,7 +276,7 @@ function Home() {
                     <>
                       <BigCover
                         style={{
-                          backgroundImage: `url(${makeImagePath(
+                          backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
                             clickedMovie.backdrop_path,
                             'w500'
                           )})`,
