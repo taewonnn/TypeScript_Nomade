@@ -256,7 +256,14 @@ function Home() {
             {movieIdMatch ? (
               <>
                 <Overlay onClick={onOverlayClicked} variants={overlayVariants} />
-                <BigMovie layoutId={movieIdMatch.params.movieId} />
+                <BigMovie layoutId={movieIdMatch.params.movieId}>
+                  {clickedMovie && (
+                    <>
+                      <img src={makeImagePath(clickedMovie.backdrop_path, 'w500')}></img>
+                      <h2>{clickedMovie.title}</h2>
+                    </>
+                  )}
+                </BigMovie>
               </>
             ) : null}
           </AnimatePresence>
