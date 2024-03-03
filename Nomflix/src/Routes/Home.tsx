@@ -119,7 +119,10 @@ const BigCover = styled.div`
 const BigTitle = styled.h3`
   color: ${(props) => props.theme.white.lighter};
   text-align: center;
-  font-size: 40px;
+  font-size: 46px;
+  position: relative;
+  top: -10px;
+  padding: 10px;
 `;
 
 /** Style End */
