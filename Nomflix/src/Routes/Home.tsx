@@ -82,7 +82,6 @@ const BigMovie = styled(motion.div)`
   left: 0;
   right: 0;
   margin: auto;
-  background-color: red;
 `;
 
 const Info = styled(motion.div)`
@@ -259,7 +258,7 @@ function Home() {
                 <BigMovie layoutId={movieIdMatch.params.movieId}>
                   {clickedMovie && (
                     <>
-                      <img src={makeImagePath(clickedMovie.backdrop_path, 'w500')}></img>
+                      <img src={makeImagePath(clickedMovie.backdrop_path, 'w500')} />
                       <h2>{clickedMovie.title}</h2>
                     </>
                   )}
