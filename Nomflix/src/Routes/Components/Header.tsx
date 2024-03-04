@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { motion, useMotionValueEvent, useScroll, useAnimation } from 'framer-motion';
 import { useState } from 'react';
-import { Link, useMatch } from 'react-router-dom';
+import { Link, useMatch, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 /** Style Start */
@@ -89,7 +89,7 @@ const Input = styled(motion.input)`
 /** Style End */
 
 /** Interface Start */
-interface IFom {
+interface IForm {
   keyword: string;
 }
 /** interface Start */
@@ -117,6 +117,10 @@ function Header() {
   const homeMatch = useMatch('/home');
   console.log('home있는지 확인 : ', homeMatch); // 있으면 obj  없으면 null
   /** useMatch */
+
+  /** useNavigate */
+  const navigate = useNavigate();
+  /** useNavigate */
 
   /** useScroll - 스크롤을 움직일 때, 밑에서부터 얼마나 멀리 있는지 알려줌 */
   const { scrollY } = useScroll();
@@ -166,10 +170,15 @@ function Header() {
   /** 스크롤 이동 시 header 배경색 변경 */
 
   /** useForm */
-  const { register, handleSubmit } = useForm<IFom>();
-
-  const onValid = (data: IFom) => {};
+  const { register, handleSubmit } = useForm<IForm>();
+  const onValid = (data: IForm) => {
+    // 데이터 확인
+    console.log(data);
+    // url 검색어 파라미터 붙여서 이동
+    navigate(`/search?keyword=${data.keyword}`);
+  };
   /** useForm */
+
   return (
     <Nav animate={navAnimation} variants={navVariants} initial={'top'}>
       <Col>
