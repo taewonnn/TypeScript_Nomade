@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import Home from './Routes/Home/Home';
-import Tv from './Routes/Tv';
+import Tv from './Routes/Tv/Tv';
 
 import Search from './Routes/Search/Search';
 
