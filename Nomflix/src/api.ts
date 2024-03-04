@@ -19,8 +19,16 @@ export interface IGetMovieResult {
 }
 /** Interface End */
 
+/** 영화 데이터 가져오기 */
 export function getMovies() {
   return fetch(
     `${process.env.REACT_APP_BASE_URL}/movie/now_playing?api_key=${process.env.REACT_APP_MOVIE_API_KEY}`
   ).then((response) => response.json());
 }
+/** 영화 데이터 가져오기 */
+
+/** 영화 데이터 가져오기 */
+/** 영화 데이터 가져오기 */
+
+// API: https://api.themoviedb.org/3/search/movie?api_key=api_key&language=en-US&query=hello&page=1&include_adult=false
+// https://developers.themoviedb.org/3/search/search-movies
