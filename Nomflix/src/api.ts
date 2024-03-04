@@ -48,8 +48,3 @@ export function getPopularMovie() {
     (response) => response.json()
   );
 }
-
-/** 영화 데이터 가져오기 */
-
-// API: https://api.themoviedb.org/3/search/movie?api_key=api_key&language=en-US&query=hello&page=1&include_adult=false
-// https://developers.themoviedb.org/3/search/search-movies
