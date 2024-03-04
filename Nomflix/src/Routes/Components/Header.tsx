@@ -167,6 +167,8 @@ function Header() {
 
   /** useForm */
   const { register, handleSubmit } = useForm<IFom>();
+
+  const onValid = (data: IFom) => {};
   /** useForm */
   return (
     <Nav animate={navAnimation} variants={navVariants} initial={'top'}>
@@ -192,7 +194,7 @@ function Header() {
         </Items>
       </Col>
       <Col>
-        <Search>
+        <Search onSubmit={handleSubmit(onValid)}>
           <motion.svg
             onClick={toggleSearch}
             animate={{ x: searchOpen ? -180 : 0 }}
