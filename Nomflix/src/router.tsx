@@ -3,7 +3,7 @@ import App from './App';
 import Home from './Routes/Home/Home';
 import Tv from './Routes/Tv';
 
-import Search from './Routes/Search';
+import Search from './Routes/Search/Search';
 
 const router = createBrowserRouter([
   {
