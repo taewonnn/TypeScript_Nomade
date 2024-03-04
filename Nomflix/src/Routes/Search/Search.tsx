@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import * as Style from './Search.styles';
 
 function Search() {
   /** useLoaction - url 정보 */
@@ -7,7 +8,7 @@ function Search() {
   console.log('keyword 가져오기 : ', keyword);
   /** useLoaction */
 
-  return <div>Search</div>;
+  return <Style.Wrapper></Style.Wrapper>;
 }
 
 export default Search;
