@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMatch, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import * as Stlye from './Home.styles';
+import * as Style from './Home.styles';
 import { IGetMovieResult, getMovies } from '../../api';
 import { makeImagePath } from '../../utils';
 import { AnimatePresence } from 'framer-motion';
@@ -107,22 +107,22 @@ function Home() {
   /** 클릭한 box의 영화 정보 */
 
   return (
-    <Stlye.Wrapper>
+    <Style.Wrapper>
       {isLoading ? (
-        <Stlye.Loader>Loading...</Stlye.Loader>
+        <Style.Loader>Loading...</Style.Loader>
       ) : (
         <>
-          <Stlye.Banner
+          <Style.Banner
             onClick={increaseIndex}
             bgPhoto={makeImagePath(data?.results[0].backdrop_path || '')}
           >
-            <Stlye.Title>{data?.results[0].title}</Stlye.Title>
-            <Stlye.Overview>{data?.results[0].overview}</Stlye.Overview>
-          </Stlye.Banner>
+            <Style.Title>{data?.results[0].title}</Style.Title>
+            <Style.Overview>{data?.results[0].overview}</Style.Overview>
+          </Style.Banner>
           {/* 슬라이드 영역 - 첫번째 줄 */}
-          <Stlye.Slider>
+          <Style.Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
-              <Stlye.Row
+              <Style.Row
                 initial={{ x: width + 10 }}
                 animate={{ x: 0 }}
                 exit={{ x: -width - 10 }}
@@ -134,7 +134,7 @@ function Home() {
                   .slice(1)
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
-                    <Stlye.Box
+                    <Style.Box
                       layoutId={movie.id + ''}
                       onClick={() => onBoxClicked(movie.id)}
                       key={movie.id}
@@ -143,21 +143,22 @@ function Home() {
                       variants={BoxVariants}
                       bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
                     >
-                      <Stlye.Info variants={infoVariants}>{<h4>{movie.title}</h4>}</Stlye.Info>
-                    </Stlye.Box>
+                      <Style.Info variants={infoVariants}>{<h4>{movie.title}</h4>}</Style.Info>
+                    </Style.Box>
                   ))}
-              </Stlye.Row>
+              </Style.Row>
             </AnimatePresence>
-          </Stlye.Slider>
+          </Style.Slider>
+          {/* 슬라이드 영역 - 첫번째 줄 */}
           {/* movie 선택 시 상세 화면 -> movies/:movieId 일 때 보여지는 모달 */}
           <AnimatePresence>
             {movieIdMatch ? (
               <>
-                <Stlye.Overlay onClick={onOverlayClicked} variants={overlayVariants} />
-                <Stlye.BigMovie layoutId={movieIdMatch.params.movieId}>
+                <Style.Overlay onClick={onOverlayClicked} variants={overlayVariants} />
+                <Style.BigMovie layoutId={movieIdMatch.params.movieId}>
                   {clickedMovie && (
                     <>
-                      <Stlye.BigCover
+                      <Style.BigCover
                         style={{
                           backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
                             clickedMovie.backdrop_path,
@@ -165,17 +166,17 @@ function Home() {
                           )})`,
                         }}
                       />
-                      <Stlye.BigTitle>{clickedMovie.title}</Stlye.BigTitle>
-                      <Stlye.BigOverView>{clickedMovie.overview}</Stlye.BigOverView>
+                      <Style.BigTitle>{clickedMovie.title}</Style.BigTitle>
+                      <Style.BigOverView>{clickedMovie.overview}</Style.BigOverView>
                     </>
                   )}
-                </Stlye.BigMovie>
+                </Style.BigMovie>
               </>
             ) : null}
           </AnimatePresence>
         </>
       )}
-    </Stlye.Wrapper>
+    </Style.Wrapper>
   );
 }
 
