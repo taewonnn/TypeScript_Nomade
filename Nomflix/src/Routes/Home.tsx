@@ -105,7 +105,7 @@ const Overlay = styled(motion.div)`
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: ${(props) => props.theme.black.lighter}
+  background-color: ${(props) => props.theme.black.lighter};
   opacity: 0;
 `;
 
