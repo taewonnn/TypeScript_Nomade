@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { motion, useMotionValueEvent, useScroll, useAnimation } from 'framer-motion';
 import { useState } from 'react';
 import { Link, useMatch } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 /** Style Start */
 const Nav = styled(motion.nav)`
@@ -87,6 +88,12 @@ const Input = styled(motion.input)`
 `;
 /** Style End */
 
+/** Interface Start */
+interface IFom {
+  keyword: string;
+}
+/** interface Start */
+
 /** Motion Start */
 const LogoVarinats = {
   normal: {
@@ -158,6 +165,9 @@ function Header() {
   });
   /** 스크롤 이동 시 header 배경색 변경 */
 
+  /** useForm */
+  const { register, handleSubmit } = useForm<IFom>();
+  /** useForm */
   return (
     <Nav animate={navAnimation} variants={navVariants} initial={'top'}>
       <Col>
@@ -198,8 +208,8 @@ function Header() {
             ></path>
           </motion.svg>
           <Input
+            {...register('keyword', { required: true, minLength: 2 })}
             animate={inputAnimation}
-            // animate={{ scaleX: searchOpen ? 1 : 0 }}
             initial={{ scaleX: 0 }}
             transition={{ type: 'linear' }}
             placeholder="Search for movie or tv show..."
