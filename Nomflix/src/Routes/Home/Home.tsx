@@ -119,6 +119,7 @@ function Home() {
             <Stlye.Title>{data?.results[0].title}</Stlye.Title>
             <Stlye.Overview>{data?.results[0].overview}</Stlye.Overview>
           </Stlye.Banner>
+          {/* 슬라이드 영역 - 첫번째 줄 */}
           <Stlye.Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Stlye.Row
