@@ -46,7 +46,7 @@ const overlayVariants = {
 };
 /** animation */
 
-function Home() {
+function Home2() {
   /** useNavigate - url 이동 */
   const navigate = useNavigate();
   /** url 이동  */
@@ -180,7 +180,7 @@ function Home() {
   );
 }
 
-export default Home;
+export default Home2;
 
 /** Ex. */
 // const offset = 6;
