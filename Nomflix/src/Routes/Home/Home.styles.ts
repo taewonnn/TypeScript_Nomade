@@ -63,7 +63,7 @@ export const Box = styled(motion.div)<{ bgPhoto: string }>`
   }
 
   &:last-child {
-    transform-origin: center rigth;
+    transform-origin: center right;
   }
 `;
 
