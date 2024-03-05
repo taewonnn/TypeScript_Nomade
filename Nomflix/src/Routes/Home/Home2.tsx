@@ -6,6 +6,7 @@ import { IGetMovieResult, getMovies } from '../../api';
 import { makeImagePath } from '../../utils';
 import { AnimatePresence } from 'framer-motion';
 import useWindowDimensions from '../Components/useWindowDimensions';
+import MovieSlider from '../MovieSlider/MovieSlider';
 
 /** animation */
 // Box 6개씩 보여주기
@@ -121,33 +122,16 @@ function Home2() {
           </Style.Banner>
           {/* 슬라이드 영역 - 첫번째 줄 */}
           <Style.Slider>
-            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
-              <Style.Row
-                initial={{ x: width + 10 }}
-                animate={{ x: 0 }}
-                exit={{ x: -width - 10 }}
-                transition={{ type: 'tween', duration: 1 }}
-                key={index}
-              >
-                {/* data?.results.slice(1) -> 상단에 1개는 이미 사용해서 해당 영화는 제외하고 나머지만 받아오기 위해  */}
-                {data?.results
-                  .slice(1)
-                  .slice(offset * index, offset * index + offset)
-                  .map((movie) => (
-                    <Style.Box
-                      layoutId={movie.id + ''}
-                      onClick={() => onBoxClicked(movie.id)}
-                      key={movie.id}
-                      initial="normal"
-                      whileHover="hover"
-                      variants={BoxVariants}
-                      bgPhoto={makeImagePath(movie.backdrop_path, 'w500' || '')}
-                    >
-                      <Style.Info variants={infoVariants}>{<h4>{movie.title}</h4>}</Style.Info>
-                    </Style.Box>
-                  ))}
-              </Style.Row>
-            </AnimatePresence>
+            <MovieSlider
+              toggleLeaving={toggleLeaving}
+              width={window.innerWidth}
+              index={index}
+              data={data}
+              offset={4}
+              onBoxClicked={onBoxClicked}
+              BoxVariants={BoxVariants}
+              infoVariants={infoVariants}
+            />
           </Style.Slider>
           {/* 슬라이드 영역 - 첫번째 줄 */}
           {/* movie 선택 시 상세 화면 -> movies/:movieId 일 때 보여지는 모달 */}
