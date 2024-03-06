@@ -8,6 +8,7 @@ import PublicHome from '../pages/PublicHome';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
+// 로그인 한 유저 라우터
 export const router = createBrowserRouter([
   {
     path: '/',
