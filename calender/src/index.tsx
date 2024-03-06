@@ -7,7 +7,8 @@ import { RecoilRoot } from 'recoil';
 
 // 로그인 상태를 확인하는 함수 또는 상태
 const isLoggedIn = () => {
-  var user = 1;
+  // 테스트 위해 user 지정
+  const user = 1;
   if (user) {
     return true;
   }
