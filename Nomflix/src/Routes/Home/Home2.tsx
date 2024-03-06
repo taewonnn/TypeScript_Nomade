@@ -127,7 +127,7 @@ function Home2() {
               width={window.innerWidth}
               index={index}
               data={data}
-              offset={4}
+              offset={6}
               onBoxClicked={onBoxClicked}
               BoxVariants={BoxVariants}
               infoVariants={infoVariants}
