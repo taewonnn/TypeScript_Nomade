@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactNode, MouseEventHandler } from 'react';
 
 export interface ICustomButton {
   children: ReactNode;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
 }
