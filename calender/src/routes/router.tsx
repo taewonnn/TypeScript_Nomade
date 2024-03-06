@@ -4,6 +4,9 @@ import Calendar from '../pages/Calendar';
 import Home from '../pages/Home';
 import Asset from '../pages/Asset';
 import Info from '../pages/Info';
+import PublicHome from '../pages/PublicHome';
+import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
 
 export const router = createBrowserRouter([
   {
@@ -30,39 +33,20 @@ export const router = createBrowserRouter([
   },
 ]);
 
-/** 
- * 🛠️ 추후 로그인 구현 후 로그인한 유저 / 로그인 안한 유저 분리 라우터 적용 
 // 로그인 안 한 유저들을 위한 라우트
-export const routesForNotAuthenticatedOnly = [
+export const routesForNotAuthenticatedOnly = createBrowserRouter([
   {
     path: '/',
     element: <PublicHome />,
-  },
-  {
-    path: '/sign-in',
-    element: <SignIn />,
-  },
-  {
-    path: '/sign-up',
-    element: <SignUp />,
-  },
-];
-
-// 로그인 한 유저들을 위한 라우트
-export const routesForAuthenticatedOnly = [
-  {
-    path: '/',
-    element: <ProtectedRoute />,
     children: [
       {
-        path: '',
-        element: <Home />,
+        path: '/signin',
+        element: <SignIn />,
       },
       {
-        path: '/profile',
-        element: <Profile />,
+        path: '/signup',
+        element: <SignUp />,
       },
     ],
   },
-];
- */
+]);

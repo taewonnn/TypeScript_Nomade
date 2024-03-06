@@ -6,7 +6,14 @@ function Calendar() {
     <>
       {/* FullCalendar */}
       <div className="w-full h-1/2">
-        <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" />
+        <FullCalendar
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+          events={[
+            { title: '테스트1', date: '2024-03-20' },
+            { title: '테스트2', date: '2024-03-15' },
+          ]}
+        />
       </div>
     </>
   );
