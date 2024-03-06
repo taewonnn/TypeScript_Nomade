@@ -1,5 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
+import Calendar from '../pages/Calendar';
+import Home from '../pages/Home';
+import Asset from '../pages/Asset';
+import Info from '../pages/Info';
 
 export const router = createBrowserRouter([
   {
@@ -8,19 +12,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/home',
-        element: '',
+        element: <Home />,
       },
       {
         path: '/calendar',
-        element: '',
+        element: <Calendar />,
       },
       {
         path: '/asset',
-        element: '',
+        element: <Asset />,
       },
       {
         path: '/info',
-        element: '',
+        element: <Info />,
       },
     ],
   },
