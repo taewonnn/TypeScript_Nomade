@@ -93,6 +93,15 @@ function Home2() {
     }
   };
 
+  // index 증가 / 감소
+  const increaseIndexTest = () => {
+    setLeaving(true);
+    return;
+  };
+  const decreaseIndexTest = () => {
+    setLeaving(true);
+  };
+
   const toggleLeaving = () => setLeaving((prev) => !prev);
   /** 슬라이드 - index */
 
@@ -128,7 +137,7 @@ function Home2() {
             <Style.Title>{nowPlayingMovie?.results[0].title}</Style.Title>
             <Style.Overview>{nowPlayingMovie?.results[0].overview}</Style.Overview>
           </Style.Banner>
-          {/* 슬라이드 영역 - 첫번째 줄 */}
+          {/* 슬라이드 영역 - 첫번째 : 상영중인 영화 */}
           <Style.Slider>
             <MovieSlider
               toggleLeaving={toggleLeaving}
@@ -139,9 +148,11 @@ function Home2() {
               onBoxClicked={onBoxClicked}
               BoxVariants={BoxVariants}
               infoVariants={infoVariants}
+              increaseIndexTest={increaseIndexTest}
+              decreaseIndexTest={decreaseIndexTest}
             />
           </Style.Slider>
-          {/* 슬라이드 영역 - 첫번째 줄 */}
+          {/* 슬라이드 영역 - 첫번째 : 상영중인 영화 */}
           {/* movie 선택 시 상세 화면 -> movies/:movieId 일 때 보여지는 모달 */}
           <AnimatePresence>
             {movieIdMatch ? (

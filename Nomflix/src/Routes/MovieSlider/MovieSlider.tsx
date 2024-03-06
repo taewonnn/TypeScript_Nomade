@@ -13,6 +13,8 @@ interface MovieSliderProps {
   onBoxClicked: (movieId: number) => void;
   BoxVariants: Variants;
   infoVariants: Variants;
+  increaseIndexTest: () => void;
+  decreaseIndexTest: () => void;
 }
 /** Interface End */
 
@@ -25,6 +27,8 @@ function MovieSlider({
   onBoxClicked,
   BoxVariants,
   infoVariants,
+  increaseIndexTest,
+  decreaseIndexTest,
 }: MovieSliderProps) {
   return (
     <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
@@ -35,6 +39,7 @@ function MovieSlider({
         transition={{ type: 'tween', duration: 1 }}
         key={index}
       >
+        <Style.Button onClick={() => decreaseIndexTest}>Previous</Style.Button>
         {/* data?.results.slice(1) -> 상단에 1개는 이미 사용해서 해당 영화는 제외하고 나머지만 받아오기 위해  */}
         {data?.results
           .slice(1)
@@ -52,6 +57,7 @@ function MovieSlider({
               <Style.Info variants={infoVariants}>{<h4>{movie.title}</h4>}</Style.Info>
             </Style.Box>
           ))}
+        <Style.Button onClick={() => increaseIndexTest}>Next</Style.Button>
       </Style.Row>
     </AnimatePresence>
   );

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export const Row = styled(motion.div)`
   display: grid;
   gap: 5px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr 30px;
   position: absolute;
   width: 100%;
 `;
@@ -39,4 +39,8 @@ export const Info = styled(motion.div)`
     text-align: center;
     font-size: 18px;
   }
+`;
+
+export const Button = styled.button`
+  width: 30px;
 `;
